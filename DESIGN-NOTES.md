@@ -1,21 +1,41 @@
-# The connected journey — revision 2
+# 13 years, one connected journey — revision 3
 
-The portfolio now opens with a cinematic smart-home architectural visualization and continues into four scroll-controlled chapters: physical device signal, connected architecture, repeatable automation, and mobile experience at Verivox.
+The site is no longer a scrolling page. It is a full-screen 3D world: the career is a glowing timeline through space, and each chapter is a 3D scene placed along it. Moving to a chapter flies the camera to that scene while the chapter's page animates in. The timeline lights up as you travel.
 
-Interactions: parallax opening image; pinned 3D journey; camera and model transitions; exploded house floors; animated device-to-cloud signals; automation orbit; mobile scene; chapter jump controls; selectable architecture nodes with contextual explanations; project accordions; reveal transitions; pointer-responsive phone; motion toggle and reduced-motion support.
+## Chapters
 
-Content boundaries: Verivox title, March 2026 start, sole QA responsibility, both mobile platforms, Detox and Appium come from the user. Earlier metrics belong to connected-home work. Architecture, artwork and mobile UI are illustrative, not employer system diagrams or product screenshots. The inconsistent dates in the original CV have not been invented or propagated.
+| # | Chapter | 3D scene |
+|---|---------|----------|
+| 0 | Start — 13 years at a glance | Connected core with orbit rings |
+| 1 | 2013 · BPL Techno Vision — QA / Validation Engineer | Circuit board with live signal traces and an oscilloscope |
+| 2 | 2015 · Honeywell Technology Solutions Labs — Sr. Software Engineer, Manual & Functional | Building with a floor-by-floor scan, sensors and radar |
+| 3 | 2018 · Resideo — Sr. Software Engineer, Mobile & IoT Test Automation | Connected house sending signals to a phone, plus a device farm running in parallel |
+| 4 | 2020 · Resideo — Technical Lead | Device → MQTT → Cloud → GraphQL → App chain; bars animate 25→10 days and 30→60% |
+| 5 | 2024 · Resideo — Advanced Engineer II, System Test | Four app cards orbiting a core (First Alert, Resideo Pro, Honeywell Home, Total Connect) |
+| 6 | Awards | Gold, silver and bronze medals |
+| 7 | 2026 · Verivox, Germany — Software QA Engineer | iOS / Android phones with Detox and Appium chips |
+| 8 | Connect | Camera rewinds past every chapter back to the origin; contact links |
 
-## Generated artwork
+## Navigation
 
-Built-in image generation was used. Project asset: `dist/assets/connected-home.jpg` (converted from the original PNG). The original image is retained in the generator output directory.
+Scroll (one gesture = one chapter), swipe, arrow keys / Page Up / Page Down / Home / End, the clickable timeline at the bottom, the arrow buttons, or the "Next" button in each page. Each chapter has its own link (`#2013`, `#2020`, `#connect` …).
 
-Prompt: Create one extraordinary wide cinematic 3D architectural visualization for a senior mobile and IoT quality engineer's immersive portfolio. 16:9 landscape high resolution. A sophisticated exploded cutaway of a real contemporary smart home floating in deep almost-black navy space. Concrete slabs, warm oak rooms, precise glass walls, realistic furniture, stairwell, a rooftop section suspended above. Integrated thermostat, smoke detector, security camera, leak sensor devices visible as tiny precision hardware. Fine electric cyan and warm amber light traces physically connect sensors across rooms to a small glowing gateway and upward to a suspended elegant translucent cloud/data lattice. Dramatic volumetric rim lighting, subtle mist, realistic materials, extremely polished architectural product-render quality, complex but legible, premium architectural magazine meets science museum. House placed center-right occupying 65% width; left 30% mostly dark atmospheric negative space for website headline. Restrained teal cyan and amber, not purple. No text, no lettering, no logos, no UI, no borders. Wide shot with full house in frame, remarkable depth and cinematic detail.
+## Content to confirm
+
+- **Honeywell Technology Solutions Labs dates.** The CV prints Nov 2018 – Oct 2020 for both this role and the first Resideo role. The site shows **2015 — 2018**, inferred from the gap between BPL (ended Apr 2015) and Resideo (started Nov 2018). Edit `range` in the `CHAPTERS` list at the top of `dist/app.js` if that is wrong.
+- **Resideo end date.** The CV says "Oct 2024 – Present"; the site shows **Oct 2024 — 2026** because Verivox started in March 2026.
+- **13 years** is counted from April 2013 to 2026. The CV summary still says 11+.
+
+All career text lives in the `CHAPTERS` list at the top of `dist/app.js`.
+
+## Technical
+
+- Three.js r170, bundled locally (`dist/assets/three.module.js`). All 3D models are built in code, with no image or model files.
+- Fonts: Space Grotesk, DM Sans and JetBrains Mono from Google Fonts, with system fallbacks.
+- On desktop the 3D view is shifted right of the page panel. On phones it sits above a bottom panel and the camera pulls further back.
+- With reduced motion turned on, camera moves are instant and animations slow down. Without WebGL, the pages still work over a gradient background.
+- The Verivox phone screen is illustrative and labelled as not the real app UI.
 
 ## Checks
 
-JavaScript syntax checked. Visually inspected the desktop hero, 3D chapters, architecture map, and mobile journey at 390px. Checked chapter navigation and API-node selection. Three.js is bundled locally. Google Fonts remains an external enhancement with system fallbacks.
-
-## Revision 2.1 — polish
-
-Removed the unused v1 files (`scene.js`, `style.css`, `interactions.js`). Fixed "Device.Cloud." running together on mobile, let the Verivox phone mockup grow to fit its content (its footer was spilling out of the frame), and moved the mobile caption and Appium chip so they no longer overlap the phone. Added a cache-busting query to the stylesheet link. Re-checked desktop (1440px) and mobile (375px): no console errors, chapter navigation and architecture nodes work.
+Tested at 1440×900 and 375×812: no console errors, every chapter framed and readable, scroll / keys / swipe / timeline navigation all working, and no horizontal overflow on mobile.

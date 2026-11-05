@@ -15,3 +15,7 @@ Prompt: Create one extraordinary wide cinematic 3D architectural visualization f
 ## Checks
 
 JavaScript syntax checked. Visually inspected the desktop hero, 3D chapters, architecture map, and mobile journey at 390px. Checked chapter navigation and API-node selection. Three.js is bundled locally. Google Fonts remains an external enhancement with system fallbacks.
+
+## Revision 2.1 — polish
+
+Removed the unused v1 files (`scene.js`, `style.css`, `interactions.js`). Fixed "Device.Cloud." running together on mobile, let the Verivox phone mockup grow to fit its content (its footer was spilling out of the frame), and moved the mobile caption and Appium chip so they no longer overlap the phone. Added a cache-busting query to the stylesheet link. Re-checked desktop (1440px) and mobile (375px): no console errors, chapter navigation and architecture nodes work.

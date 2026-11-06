@@ -11,90 +11,112 @@ const CHAPTERS = [
   {
     key: 'start', rail: 'START', short: '●', sector: 'ORIGIN · 2013 → 2026',
     kicker: 'THIRTEEN YEARS · ONE CONNECTED JOURNEY',
-    title: 'From a circuit board<br>to the <em>phone in your hand.</em>',
-    body: 'I’m Hemanth Balaji — a quality engineer who has spent 13 years proving that devices, cloud and apps work together. Travel through the journey, one chapter at a time.',
-    stats: [['13', 'years'], ['5', 'roles'], ['4', 'flagship apps'], ['5', 'awards']],
+    title: ['From a circuit board', 'to the <em>phone in your hand.</em>'],
+    body: 'I’m Hemanth Balaji — a quality engineer who has spent 13 years proving that devices, cloud and apps work together.',
     cta: 'Begin the journey',
+    callouts: [
+      { pin: 'a', dir: 'ne', big: '13', k: 'YEARS IN QUALITY', t: 'Devices, cloud and apps — proven to work together.' },
+      { pin: 'b', dir: 'e', big: '5', k: 'ROLES', t: 'From validation engineer to mobile QA owner.' },
+      { pin: 'c', dir: 'se', big: '4', k: 'FLAGSHIP APPS', t: 'First Alert, Resideo Pro, Honeywell Home, Total Connect.' },
+      { pin: 'd', dir: 'sw', big: '5', k: 'AWARDS', t: 'Gold, silver and bronze at Resideo / Honeywell Home.', accent: 'amber' },
+    ],
   },
   {
     key: '2013', rail: '2013', short: '13', sector: 'BPL TECHNO VISION · BANGALORE',
     year: '2013', kicker: 'CHAPTER 01 · THE FOUNDATION',
-    title: 'It started with<br>a <em>signal.</em>',
+    title: ['It started with', 'a <em>signal.</em>'],
     company: 'BPL Techno Vision', role: 'QA / Validation Engineer', range: 'APR 2013 — APR 2015', place: 'Bangalore, India',
-    body: 'An electronics diploma and my first lab. Before apps and clouds there was hardware — and the discipline of proving it behaves exactly as designed.',
-    points: ['Validated embedded systems and software against design specifications', 'Tracked and verified defects across the SDLC', 'Contributed to core regression suites for product releases'],
-    tags: ['EMBEDDED', 'UART', 'VALIDATION', 'DIPLOMA · ELECTRONICS & COMMUNICATION'],
+    body: 'Before apps and clouds there was hardware — and the discipline of proving it behaves exactly as designed.',
+    callouts: [
+      { pin: 'mcu', dir: 'ne', k: 'MCU · SPEC VALIDATION', t: 'Validated embedded systems and software against design specifications.' },
+      { pin: 'mem', dir: 'sw', k: 'MEM · DEFECT TRACE', t: 'Tracked and verified defects across the full SDLC.' },
+      { pin: 'pwr', dir: 'se', k: 'PWR · REGRESSION', t: 'Contributed to the core regression suites behind product releases.' },
+      { pin: 'scope', dir: 'nw', k: 'ORIGIN · DIPLOMA', t: 'Electronics & Communication — where the signal began.', accent: 'amber' },
+    ],
   },
   {
     key: '2015', rail: '2015', short: '15', sector: 'HONEYWELL TECHNOLOGY SOLUTIONS LABS',
     year: '2015', kicker: 'CHAPTER 02 · SYSTEMS AT SCALE',
-    title: 'Then the systems<br>grew to <em>buildings.</em>',
+    title: ['Then the systems', 'grew to <em>buildings.</em>'],
     company: 'Honeywell Technology Solutions Labs', role: 'Senior Software Engineer — Manual & Functional Testing', range: '2015 — 2018', place: 'Bangalore, India',
-    body: 'Building automation and security systems: software that runs entire buildings. I learned to think in requirements, traceability and the edge cases nobody expects.',
-    points: ['Functional and non-functional testing of building automation and security software', 'Test plans for system, integration and UAT testing', 'Requirement Traceability Matrix to guarantee release coverage'],
-    tags: ['BUILDING AUTOMATION', 'SECURITY SYSTEMS', 'RTM', 'AGILE'],
+    body: 'Software that runs entire buildings. I learned to think in requirements, traceability and the edge cases nobody expects.',
+    callouts: [
+      { pin: 'hvac', dir: 'sw', k: 'HVAC · FUNCTIONAL', t: 'Functional and non-functional testing of building-automation software.' },
+      { pin: 'sec', dir: 'e', k: 'SECURITY · SYSTEMS', t: 'Security-system software tested for the edge cases nobody expects.' },
+      { pin: 'access', dir: 'se', k: 'TEST PLANS', t: 'System, integration and UAT test plans.' },
+      { pin: 'antenna', dir: 'ne', k: 'RTM · COVERAGE', t: 'Requirement Traceability Matrix to guarantee release coverage.', accent: 'amber' },
+    ],
   },
   {
     key: '2018', rail: '2018', short: '18', sector: 'RESIDEO · HONEYWELL HOME',
     year: '2018', kicker: 'CHAPTER 03 · THE CONNECTED HOME',
-    title: 'The home became<br><em>connected.</em>',
+    title: ['The home became', '<em>connected.</em>'],
     company: 'Resideo Technologies (Honeywell Home)', role: 'Senior Software Engineer — Mobile & IoT Test Automation', range: 'NOV 2018 — OCT 2020', place: 'Bangalore, India',
-    body: 'Thermostats, cameras and leak sensors met the smartphone. I built the Appium automation that tested them — running in parallel across cloud device farms.',
-    points: ['Appium frameworks with TestNG and Page Object Model for Honeywell Lyric / Home and TCC', 'Jenkins CI/CD with parallel runs on pCloudy, Sauce Labs and Perfecto', 'Backend / API validation of device-status sync and network reliability'],
-    tags: ['APPIUM', 'TESTNG', 'JENKINS', 'DEVICE CLOUDS', 'IoT'],
+    body: 'Thermostats, cameras and leak sensors met the smartphone — and I built the automation that tested them.',
+    callouts: [
+      { pin: 'phone', dir: 'e', k: 'APPIUM · TESTNG · POM', t: 'Automation frameworks for Honeywell Lyric / Home and TCC.' },
+      { pin: 'farm', dir: 'ne', k: 'JENKINS · DEVICE CLOUD', t: 'Parallel CI runs on pCloudy, Sauce Labs and Perfecto.', accent: 'amber' },
+      { pin: 'leak', dir: 'se', k: 'API · DEVICE SYNC', t: 'Backend and API validation of device-status sync and network reliability.' },
+      { pin: 'thermo', dir: 'sw', k: 'IoT · DEVICES', t: 'Thermostats, cameras, leak and smoke sensors — end to end.' },
+    ],
   },
   {
     key: '2020', rail: '2020', short: '20', sector: 'DEVICE → CLOUD → APP',
     year: '2020', kicker: 'CHAPTER 04 · LEADING THE SYSTEM',
-    title: 'I learned to make<br>quality <em>scale.</em>',
+    title: ['I learned to make', 'quality <em>scale.</em>'],
     company: 'Resideo Technologies (Honeywell Home)', role: 'Technical Lead — Mobile & IoT Test Automation', range: 'NOV 2020 — OCT 2024', place: 'Bangalore, India',
-    body: 'Leading the mobile automation roadmap across iOS, Android and IoT devices — and validating the whole chain, from the device to the cloud to the app.',
-    metrics: [['25<i>→</i>10', 'days per major-release regression'], ['30<i>→</i>60%', 'mobile & IoT automation coverage']],
-    points: ['GraphQL test modules for queries, mutations and subscriptions', 'Parallel mobile / API suites in Bamboo CI/CD', 'End-to-end strategy for Apple HomeKit and Alexa interoperability', 'Mentored automation engineers on standards and quality gates'],
-    tags: ['MQTT', 'GRAPHQL', 'FLUTTER', 'BAMBOO', 'HOMEKIT', 'ALEXA'],
+    body: 'Leading the automation roadmap across iOS, Android and IoT — validating the whole chain from device to cloud to app.',
+    callouts: [
+      { pin: 'days', dir: 'sw', big: '25<i>→</i>10', k: 'DAYS · REGRESSION', t: 'per major release', accent: 'amber' },
+      { pin: 'cov', dir: 'se', big: '30<i>→</i>60%', k: 'AUTOMATION COVERAGE', t: 'mobile & IoT', accent: 'amber' },
+      { pin: 'gql', dir: 'ne', k: 'GRAPHQL', t: 'Test modules for queries, mutations and subscriptions.' },
+      { pin: 'cloud', dir: 'n', k: 'HOMEKIT · ALEXA', t: 'End-to-end interoperability strategy.' },
+      { pin: 'app', dir: 'e', k: 'BAMBOO CI/CD', t: 'Parallel mobile and API suites.' },
+      { pin: 'mqtt', dir: 'nw', k: 'MQTT · TEAM LEAD', t: 'Mentored automation engineers on standards and quality gates.' },
+    ],
   },
   {
     key: '2024', rail: '2024', short: '24', sector: 'CONNECTED-HOME PORTFOLIO',
     year: '2024', kicker: 'CHAPTER 05 · END-TO-END OWNERSHIP',
-    title: 'Owning quality<br><em>end to end.</em>',
+    title: ['Owning quality', '<em>end to end.</em>'],
     company: 'Resideo Technologies (Honeywell Home)', role: 'Advanced Engineer II — System Test', range: 'OCT 2024 — 2026', place: 'Bangalore, India',
-    body: 'Next-gen mobile automation across the entire connected-home portfolio — from requirements review and beta programmes to UAT and release.',
-    cards: [
-      ['First Alert', 'Flutter · B2C', 'Smoke, CO and water-leak safety'],
-      ['Resideo Pro', 'Flutter · B2B', 'Installer setup and diagnostics'],
-      ['Honeywell Home', 'Native · B2C', 'Thermostats, cameras, leak sensors'],
-      ['Total Connect Intl.', 'Native · EMEA', 'Heating and security, evohome'],
+    body: 'Next-gen mobile automation across the entire connected-home portfolio — from requirements and beta to UAT and release.',
+    callouts: [
+      { pin: 'ringE', dir: 'ne', k: 'FOUR APPS · APPIUM FLUTTER · XCUITEST', t: 'Flutter and native apps — B2C, B2B and EMEA — under one automation strategy.' },
+      { pin: 'ringS', dir: 'se', k: 'AMPLITUDE', t: 'Behavioural analytics fed back into test design.', accent: 'amber' },
+      { pin: 'ringW', dir: 'sw', k: 'TESTFLIGHT · PLAY', t: 'UAT through TestFlight and Play internal / closed testing.' },
     ],
-    points: ['Amplitude behavioural analytics fed back into test design', 'UAT through TestFlight and Play internal / closed testing'],
-    tags: ['APPIUM FLUTTER', 'XCUITEST', 'AMPLITUDE', 'MATTER'],
   },
   {
     key: 'awards', rail: 'AWARDS', short: '★', sector: 'RECOGNITION',
     kicker: 'CHAPTER 06 · RECOGNITION',
-    title: 'Five times,<br>the work was <em>noticed.</em>',
+    title: ['Five times,', 'the work was <em>noticed.</em>'],
     body: 'Awards from my years at Resideo / Honeywell Home.',
-    awards: [
-      ['gold', 'GOLD', 'DAS Enhancement Award', 'Impactful delivery success'],
-      ['silver', 'SILVER', 'First Alert app release', 'Individual contribution'],
-      ['silver', 'SILVER', 'Refactored app release', 'Individual contribution'],
-      ['silver', 'SILVER', 'VPD Award', 'Engineering excellence & improved cycle time'],
-      ['bronze', 'BRONZE', 'Delivery Award', 'RED compliance, Europe'],
+    callouts: [
+      { pin: 'm0', dir: 'n', k: 'GOLD', t: 'DAS Enhancement Award — impactful delivery success.', accent: 'gold' },
+      { pin: 'm1', dir: 'n', k: 'SILVER', t: 'First Alert app release — individual contribution.', accent: 'silver' },
+      { pin: 'm2', dir: 's', k: 'SILVER', t: 'Refactored app release — individual contribution.', accent: 'silver' },
+      { pin: 'm3', dir: 's', k: 'SILVER', t: 'VPD Award — engineering excellence, faster cycle time.', accent: 'silver' },
+      { pin: 'm4', dir: 's', k: 'BRONZE', t: 'Delivery Award — RED compliance, Europe.', accent: 'bronze' },
     ],
   },
   {
     key: '2026', rail: '2026', short: '26', sector: 'VERIVOX · GERMANY',
     year: '2026', kicker: 'CHAPTER 07 · TODAY',
-    title: 'A new country.<br>The same <em>conviction.</em>',
+    title: ['A new country.', 'The same <em>conviction.</em>'],
     company: 'Verivox', role: 'Software QA Engineer', range: 'MARCH 2026 — TODAY', place: 'Germany',
-    body: 'I own the complete QA responsibility for the Verivox mobile app, across iOS and Android — bringing 13 years of systems thinking to the experience in someone’s hand.',
-    points: ['Sole QA owner for the mobile app', 'iOS and Android', 'Automation with Detox and Appium'],
-    tags: ['iOS', 'ANDROID', 'DETOX', 'APPIUM'],
+    body: '13 years of systems thinking, now focused on the experience in someone’s hand.',
+    callouts: [
+      { pin: 'phone', dir: 'ne', k: 'SOLE QA OWNER', t: 'Complete QA responsibility for the Verivox mobile app.' },
+      { pin: 'twin', dir: 'n', k: 'iOS + ANDROID', t: 'One experience, verified on both platforms.' },
+      { pin: 'chip', dir: 'se', k: 'DETOX · APPIUM', t: 'Automation suites for the mobile app.', accent: 'amber' },
+    ],
     note: '3D PHONE IS ILLUSTRATIVE — NOT THE VERIVOX APP UI',
   },
   {
     key: 'connect', rail: 'CONNECT', short: '→', sector: 'THE WHOLE JOURNEY',
     kicker: 'THE NEXT CONNECTION',
-    title: 'Thirteen years in.<br>Let’s build <em>confidence.</em>',
+    title: ['Thirteen years in.', 'Let’s build <em>confidence.</em>'],
     body: 'From embedded validation to owning quality for a mobile app — every chapter added a layer. I’d love to hear what you’re building.',
     contact: [
       ['hemanth.balaji@yahoo.in', 'EMAIL', 'mailto:hemanth.balaji@yahoo.in'],
@@ -108,53 +130,193 @@ const CHAPTERS = [
 /* ------------------------------------------------------------------ */
 const $ = (s) => document.querySelector(s);
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const panel = $('#panel');
+const story = $('#story');
 const N = CHAPTERS.length;
 let cur = -1;
+const isCompact = () => innerWidth <= 900 || innerWidth / innerHeight <= 1;
 
-/* ---------- panel rendering ---------- */
-function panelHTML(c, i) {
-  let h = `<div class="r kicker"><span class="dot"></span>${c.kicker}</div>`;
-  if (c.year) h += `<div class="r year-big">${c.year}</div>`;
-  h += `<h1 class="r title">${c.title}</h1>`;
-  if (c.company) h += `<div class="r meta"><b>${c.company}</b><span>${c.role}</span><em>${c.range} · ${c.place.toUpperCase()}</em></div>`;
-  if (c.body) h += `<p class="r body">${c.body}</p>`;
-  if (c.stats) h += `<div class="r stats">${c.stats.map(([n, l]) => `<div><strong>${n}</strong><span>${l}</span></div>`).join('')}</div>`;
-  if (c.metrics) h += `<div class="r metrics">${c.metrics.map(([n, l]) => `<div><strong>${n}</strong><span>${l}</span></div>`).join('')}</div>`;
-  if (c.cards) h += `<div class="r cards">${c.cards.map(([a, b, d]) => `<div><i style="color:var(--cyan)">${b.toUpperCase()}</i><b>${a}</b><span>${d}</span></div>`).join('')}</div>`;
-  if (c.awards) h += `<div class="r cards">${c.awards.map(([k, m, a, d], j) => `<div class="${k}${j === 0 ? ' wide' : ''}"><i>${m}</i><b>${a}</b><span>${d}</span></div>`).join('')}</div>`;
-  if (c.points) h += `<ul class="r points">${c.points.map((p) => `<li>${p}</li>`).join('')}</ul>`;
-  if (c.tags) h += `<div class="r tags">${c.tags.map((t) => `<span>${t}</span>`).join('')}</div>`;
-  if (c.contact) h += `<div class="r contact">${c.contact.map(([t, k, u]) => `<a href="${u}"${u.startsWith('http') ? ' target="_blank" rel="noopener noreferrer"' : ''}>${t}<span>${k} ↗</span></a>`).join('')}</div>`;
-  if (c.cta) h += `<button class="r cta" data-step="1">${c.cta} <span>→</span></button>`;
-  else if (i < N - 1) {
-    const nx = CHAPTERS[i + 1];
-    h += `<button class="r cta" data-step="1">Next · ${nx.year || nx.rail} <span>→</span></button>`;
-  }
-  if (c.replay) h += `<button class="r cta ghost" data-goto="0">↺ Replay the journey</button>`;
-  if (c.note) h += `<div class="r note">${c.note}</div>`;
+/* ---------- text effects ---------- */
+const GLYPHS = '01<>/#=+*▮▯ABCDEFHKXZ';
+function scramble(el, text, dur = 650, delay = 0) {
+  if (reduced) { el.textContent = text; return; }
+  el.textContent = text.replace(/\S/g, ' ');
+  setTimeout(() => {
+    const t0 = performance.now();
+    const step = () => {
+      const k = Math.min(1, (performance.now() - t0) / dur), n = Math.floor(text.length * k);
+      let out = text.slice(0, n);
+      for (let j = n; j < text.length; j++) out += text[j] === ' ' ? ' ' : GLYPHS[(Math.random() * GLYPHS.length) | 0];
+      el.textContent = out;
+      if (k < 1) requestAnimationFrame(step);
+    };
+    step();
+  }, delay);
+}
+
+/* ---------- story: floating headline, no box ---------- */
+function storyHTML(c, i) {
+  let h = `<div class="s-k fx"><span class="dot"></span><span data-scr="${c.kicker}"></span></div>`;
+  if (c.year) h += `<div class="s-year" data-scr="${c.year}" aria-label="${c.year}"></div>`;
+  h += `<h1 class="s-title">${c.title.map((l) => `<span class="ln"><span>${l}</span></span>`).join('')}</h1>`;
+  if (c.company) h += `<div class="s-meta fx"><b>${c.company}</b><span>${c.role}</span><em>${c.range} · ${c.place.toUpperCase()}</em></div>`;
+  if (c.body) h += `<p class="s-lede fx${c.callouts ? ' opt' : ''}">${c.body}</p>`;
+  if (c.callouts) h += `<ul class="sr">${c.callouts.map((o) => `<li>${o.k}: ${(o.big || '').replace(/<[^>]+>/g, ' ')} ${o.t}</li>`).join('')}</ul>`;
+  if (c.contact) h += `<div class="s-contact fx">${c.contact.map(([t, k, u]) => `<a href="${u}"${u.startsWith('http') ? ' target="_blank" rel="noopener noreferrer"' : ''}><span>${k}</span><b>${t}</b><i>↗</i></a>`).join('')}</div>`;
+  if (c.cta) h += `<button class="s-go fx" data-step="1"><span>${c.cta}</span><i>→</i></button>`;
+  if (c.replay) h += `<button class="s-go ghost fx" data-goto="0"><span>Replay the journey</span><i>↺</i></button>`;
+  if (c.note) h += `<div class="s-note fx">${c.note}</div>`;
   return h;
 }
 
-let panelTimer;
-function showPanel(i, first) {
-  clearTimeout(panelTimer);
+let storyTimer;
+function showStory(i, first) {
+  clearTimeout(storyTimer);
   const swap = () => {
-    panel.classList.remove('in', 'out');
-    panel.innerHTML = panelHTML(CHAPTERS[i], i);
-    panel.scrollTop = 0;
-    panel.querySelectorAll('.r').forEach((el, k) => el.style.setProperty('--d', `${(first ? 300 : 650) + k * 80}ms`));
-    requestAnimationFrame(() => requestAnimationFrame(() => panel.classList.add('in')));
+    story.classList.remove('in', 'out');
+    story.innerHTML = storyHTML(CHAPTERS[i], i);
+    const base = first ? 250 : 700;
+    story.querySelectorAll('.ln>span').forEach((el, k) => el.style.setProperty('--d', `${base + 180 + k * 120}ms`));
+    story.querySelectorAll('.fx').forEach((el, k) => el.style.setProperty('--d', `${base + 420 + k * 110}ms`));
+    story.querySelectorAll('[data-scr]').forEach((el, k) => scramble(el, el.dataset.scr, k ? 700 : 520, base + (k ? 60 : 0)));
+    requestAnimationFrame(() => requestAnimationFrame(() => { story.classList.add('in'); measureStory(); }));
   };
   if (first || reduced) swap();
-  else { panel.classList.add('out'); panelTimer = setTimeout(swap, 320); }
+  else { story.classList.add('out'); storyTimer = setTimeout(swap, 340); }
 }
-panel.addEventListener('click', (e) => {
+let storyBox = { right: 0, top: innerHeight };
+function measureStory() { const r = story.getBoundingClientRect(); storyBox = { right: r.right, top: r.top }; }
+story.addEventListener('click', (e) => {
   const s = e.target.closest('[data-step]');
   const g = e.target.closest('[data-goto]');
   if (s) go(cur + 1);
   if (g) go(+g.dataset.goto);
 });
+
+/* ---------- callouts: achievements wired to the 3D objects ---------- */
+const coLayer = $('#co'), coSvg = $('#co-svg');
+const SVGNS = 'http://www.w3.org/2000/svg';
+let callouts = [], coArmed = 0, coActive = 0, coCycleAt = 0;
+const svgEl = (tag, cls, parent) => { const e = document.createElementNS(SVGNS, tag); e.setAttribute('class', cls); parent.appendChild(e); return e; };
+
+function buildCallouts(i) {
+  callouts.forEach((c) => { c.el.classList.add('gone'); c.g.classList.add('gone'); setTimeout(() => { c.el.remove(); c.g.remove(); }, 450); });
+  callouts = []; coArmed = 0; coActive = 0;
+  const list = CHAPTERS[i].callouts || [];
+  const n = list.length;
+  callouts = list.map((d, k) => {
+    const el = document.createElement('div');
+    el.className = `co ${d.accent || ''}`;
+    el.innerHTML = `<span class="co-k"><i>${String(k + 1).padStart(2, '0')}<small>/${String(n).padStart(2, '0')}</small></i><span></span></span>${d.big ? `<strong class="co-big">${d.big}</strong>` : ''}<span class="co-t">${d.t}</span>`;
+    coLayer.appendChild(el);
+    const g = svgEl('g', `co-g ${d.accent || ''}`, coSvg);
+    const line = svgEl('polyline', 'co-line', g), ping = svgEl('circle', 'co-ping', g), node = svgEl('circle', 'co-node', g), dot = svgEl('circle', 'co-dot', g);
+    node.setAttribute('r', 4.5); dot.setAttribute('r', 2.6);
+    el.addEventListener('click', () => { if (isCompact()) { coActive = (coActive + 1) % callouts.length; coCycleAt = 0; } });
+    return { d, el, g, line, ping, node, dot, w: 0, h: 0, born: 0, shown: false };
+  });
+  measureCallouts();
+}
+function measureCallouts() {
+  coLayer.classList.toggle('compact', isCompact());
+  callouts.forEach((c) => { c.w = c.el.offsetWidth; c.h = c.el.offsetHeight; });
+}
+function armCallouts(i) { if (i === cur) coArmed = performance.now() + 150; }
+
+const DIRS = { n: [.25, -1.25], ne: [1, -.8], e: [1.15, -.12], se: [1, .75], s: [.25, 1.2], sw: [-1, .75], w: [-1.15, -.12], nw: [-1, -.8] };
+function route(ax, ay, lx, ly) {
+  const dx = lx - ax, dy = ly - ay, adx = Math.abs(dx), ady = Math.abs(dy);
+  if (ady <= adx) return [[ax, ay], [ax + Math.sign(dx) * ady, ly], [lx, ly]]; // 45° then horizontal
+  return [[ax, ay], [ax, ly - Math.sign(dy) * adx], [lx, ly]]; // vertical then 45°
+}
+function along(pts, f) { // point at fraction f, plus truncated polyline
+  const seg = []; let L = 0;
+  for (let k = 1; k < pts.length; k++) { const l = Math.hypot(pts[k][0] - pts[k - 1][0], pts[k][1] - pts[k - 1][1]); seg.push(l); L += l; }
+  let d = f * L; const out = [pts[0]];
+  for (let k = 1; k < pts.length; k++) {
+    if (d <= seg[k - 1] || k === pts.length - 1) { const r = seg[k - 1] ? Math.min(1, d / seg[k - 1]) : 1; const p = [pts[k - 1][0] + (pts[k][0] - pts[k - 1][0]) * r, pts[k - 1][1] + (pts[k][1] - pts[k - 1][1]) * r]; out.push(p); return { p, out }; }
+    d -= seg[k - 1]; out.push(pts[k]);
+  }
+  return { p: pts[pts.length - 1], out };
+}
+
+function updateCallouts(project) {
+  if (!callouts.length) return;
+  const now = performance.now(), W = innerWidth, H = innerHeight, compact = isCompact();
+  const s = Math.max(.75, Math.min(1.1, W / 1440));
+  const anchors = callouts.map((c) => project(cur, c.d.pin));
+
+  if (compact) {
+    // one signal at a time, docked just above the headline
+    if (coArmed && now > coArmed) {
+      if (!coCycleAt) coCycleAt = now;
+      if (now - coCycleAt > 4200) { coActive = (coActive + 1) % callouts.length; coCycleAt = now; }
+    }
+    const land = W / H > 1;
+    callouts.forEach((c, k) => {
+      const on = coArmed && now > coArmed && k === coActive && anchors[k] && anchors[k].ok;
+      if (on && !c.shown) { c.born = now; c.shown = true; c.el.classList.remove('on'); }
+      if (!on) { c.shown = false; c.born = 0; c.el.classList.remove('on'); c.g.style.opacity = 0; c.el.style.opacity = 0; return; }
+      const a = anchors[k];
+      const lx = land ? W * .56 : 18, top = land ? H * .2 : Math.max(H * .44, storyBox.top - c.h - 26);
+      c.el.style.transform = `translate3d(${lx + (land ? 10 : 0)}px, ${land ? top - 8 : top}px, 0)`;
+      c.el.style.opacity = '';
+      const pts = land ? route(a.x, a.y, lx, top) : route(a.x, a.y, Math.min(W - 18, Math.max(18, a.x * .35 + 18)), top - 10);
+      drawCallout(c, pts, now, a);
+    });
+    return;
+  }
+
+  // full constellation on wide screens
+  const minY = 158, maxY = H - 168, left = storyBox.right + 28, right = W - Math.max(24, W * .04);
+  const place = callouts.map((c, k) => {
+    const a = anchors[k]; if (!a) return null;
+    const [ux, uy] = DIRS[c.d.dir] || DIRS.e;
+    let east = ux >= 0;
+    let lx = a.x + ux * 150 * s, ly = a.y + uy * 120 * s;
+    if (!east && lx - 10 - c.w < left) { east = true; lx = a.x + Math.abs(ux) * 150 * s; }
+    if (east && lx + 10 + c.w > right) { lx = right - 10 - c.w; if (lx < a.x + 30) { east = false; lx = Math.max(left + c.w + 10, a.x - 150 * s); } }
+    return { c, a, east, lx, ly };
+  }).filter(Boolean);
+  // resolve collisions between real label boxes (either side), pushing later ones down, then back up if they run off-screen
+  const box = (p) => { const x0 = p.east ? p.lx : p.lx - 20 - p.c.w; return [x0 - 8, x0 + p.c.w + 28, p.ly - 14, p.ly - 8 + p.c.h + 10]; };
+  const hit = (a, b) => a[0] < b[1] && b[0] < a[1] && a[2] < b[3] && b[2] < a[3];
+  place.forEach((p) => { p.ly = Math.max(p.ly, minY); });
+  const ord = place.slice().sort((p, q) => p.ly - q.ly);
+  for (let k = 0; k < ord.length; k++) for (let pass = 0; pass < 3; pass++) for (let j = 0; j < k; j++) { const A = box(ord[j]), B = box(ord[k]); if (hit(A, B)) ord[k].ly = A[3] + 14; }
+  for (let k = ord.length - 1; k >= 0; k--) {
+    const over = ord[k].ly - 8 + ord[k].c.h - maxY;
+    if (over > 0) { ord[k].ly -= over; for (let j = 0; j < k; j++) { const A = box(ord[k]), B = box(ord[j]); if (hit(A, B)) ord[j].ly = Math.min(ord[j].ly, A[2] - ord[j].c.h - 6); } }
+  }
+  place.forEach((p, k) => {
+    const { c, a } = p;
+    const idx = callouts.indexOf(c);
+    const born = coArmed ? coArmed + idx * 480 : 0;
+    const on = born && now > born && a.ok;
+    if (!on) { c.g.style.opacity = 0; return; }
+    if (!c.shown) { c.shown = true; c.born = born; }
+    c.el.classList.toggle('w', !p.east);
+    c.el.style.transform = `translate3d(${p.east ? p.lx + 10 : p.lx - 10 - c.w}px, ${p.ly - 8}px, 0)`;
+    drawCallout(c, route(a.x, a.y, p.lx, p.ly), now, a);
+  });
+}
+function drawCallout(c, pts, now, a) {
+  const age = now - c.born;
+  c.g.style.opacity = 1;
+  c.node.setAttribute('cx', a.x); c.node.setAttribute('cy', a.y);
+  const pk = ((age % 2400) / 2400);
+  c.ping.setAttribute('cx', a.x); c.ping.setAttribute('cy', a.y); c.ping.setAttribute('r', 4 + pk * 22); c.ping.style.opacity = (1 - pk) * .8;
+  const f = reduced ? 1 : Math.min(1, Math.max(0, (age - 120) / 520));
+  const e = 1 - Math.pow(1 - f, 3);
+  const { out, p } = along(pts, e);
+  c.line.setAttribute('points', out.map((q) => q.join(',')).join(' '));
+  if (f < 1) { c.dot.setAttribute('cx', p[0]); c.dot.setAttribute('cy', p[1]); c.dot.style.opacity = 1; }
+  else {
+    if (!c.el.classList.contains('on')) { c.el.classList.add('on'); scramble(c.el.querySelector('.co-k>span'), c.d.k, 480); }
+    const q = ((age - 640) % 2600) / 2600; const r = along(pts, 1 - q).p; // data flows back into the object
+    c.dot.setAttribute('cx', r[0]); c.dot.setAttribute('cy', r[1]); c.dot.style.opacity = Math.sin(q * Math.PI);
+  }
+}
+addEventListener('resize', () => { measureStory(); measureCallouts(); });
 
 /* ---------- rail ---------- */
 const rail = $('#rail');
@@ -182,7 +344,8 @@ function go(i, opts = {}) {
   if (i === cur && !opts.force) return;
   const first = cur === -1;
   cur = i;
-  showPanel(i, first);
+  showStory(i, first);
+  buildCallouts(i);
   updateHUD(i);
   world && world.flyTo(i, false);
   const key = CHAPTERS[i].key;
@@ -190,17 +353,9 @@ function go(i, opts = {}) {
   if (i > 0) $('#hint').classList.add('gone');
 }
 
-function panelScrollable(target, dir) {
-  if (!panel.contains(target)) return false;
-  if (panel.scrollHeight <= panel.clientHeight + 2) return false;
-  if (dir > 0) return panel.scrollTop + panel.clientHeight < panel.scrollHeight - 2;
-  return panel.scrollTop > 0;
-}
-
 let wheelLock = 0, wheelAcc = 0;
 addEventListener('wheel', (e) => {
   const d = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
-  if (panelScrollable(e.target, d)) return;
   e.preventDefault();
   const now = performance.now();
   if (now < wheelLock) { wheelLock = Math.max(wheelLock, now + 160); return; }
@@ -209,20 +364,13 @@ addEventListener('wheel', (e) => {
 }, { passive: false });
 
 let tStart = null;
-addEventListener('touchstart', (e) => { const t = e.touches[0]; tStart = { x: t.clientX, y: t.clientY, inPanel: panel.contains(e.target), st: panel.scrollTop }; }, { passive: true });
+addEventListener('touchstart', (e) => { const t = e.touches[0]; tStart = { x: t.clientX, y: t.clientY }; }, { passive: true });
 addEventListener('touchend', (e) => {
   if (!tStart) return;
   const t = e.changedTouches[0];
-  const dx = t.clientX - tStart.x, dy = t.clientY - tStart.y;
-  const ax = Math.abs(dx), ay = Math.abs(dy);
+  const dx = t.clientX - tStart.x, dy = t.clientY - tStart.y, ax = Math.abs(dx), ay = Math.abs(dy);
   if (ax > 50 && ax > ay * 1.2) go(cur + (dx < 0 ? 1 : -1));
-  else if (ay > 60 && ay > ax) {
-    const dir = dy < 0 ? 1 : -1;
-    // inside a scrollable panel, only change chapter once the panel is at its edge
-    const scrollable = panel.scrollHeight > panel.clientHeight + 2;
-    const atEdge = dir > 0 ? panel.scrollTop + panel.clientHeight >= panel.scrollHeight - 2 && tStart.st === panel.scrollTop : panel.scrollTop <= 0 && tStart.st === 0;
-    if (!tStart.inPanel || !scrollable || atEdge) go(cur + dir);
-  }
+  else if (ay > 60 && ay > ax) go(cur + (dy < 0 ? 1 : -1));
   tStart = null;
 }, { passive: true });
 
@@ -367,6 +515,7 @@ function createWorld() {
 
   /* ---------- scenes ---------- */
   const scenes = [];
+  const pinAt = (pins, name, parent, x = 0, y = 0, z = 0) => { const o = new T.Object3D(); o.position.set(x, y, z); parent.add(o); pins[name] = o; return o; };
 
   function sceneIntro() {
     const g = new T.Group();
@@ -384,13 +533,13 @@ function createWorld() {
     for (let i = 0; i < n; i++) { const a = Math.random() * Math.PI * 2, r = 7 + Math.random() * 9; pos.set([Math.cos(a) * r, (Math.random() - .5) * 1.2 * (r / 8), Math.sin(a) * r], i * 3); }
     const disk = new T.Points(new T.BufferGeometry().setAttribute('position', new T.BufferAttribute(pos, 3)), new T.PointsMaterial({ color: COL.cyan, size: .07, transparent: true, opacity: .7, blending: T.AdditiveBlending, depthWrite: false }));
     disk.rotation.x = .25; g.add(disk);
-    const lbl = H.text('2013 ─── 13 YEARS ─── 2026', { size: .55, color: '#9fefe6' }); lbl.position.set(0, -4.6, 0); g.add(lbl);
     g.userData.tick = (t) => {
       core.rotation.y = coreEdges.rotation.y = t * .25; core.rotation.x = coreEdges.rotation.x = t * .12;
       shell.rotation.y = -t * .08; disk.rotation.y = t * .05;
       rings.forEach((r, i) => { r.rotation.z = t * (.3 + i * .12) * (i % 2 ? -1 : 1); });
     };
-    return { group: g, cam: new T.Vector3(0, 1.5, 17), look: new T.Vector3(0, 0, 0) };
+    const pins = {}; pinAt(pins, 'a', g, 1.6, 1.6, 1); pinAt(pins, 'b', g, 4.6, .2, 0); pinAt(pins, 'c', g, 2.2, -2.6, 2); pinAt(pins, 'd', g, -3.2, -2.2, 1.5);
+    return { group: g, pins, cam: new T.Vector3(0, 1.5, 17), look: new T.Vector3(0, 0, 0) };
   }
 
   function scenePCB() {
@@ -445,7 +594,8 @@ function createWorld() {
     });
     g.rotation.y = -.35;
     g.userData.tick = (t) => ticks.forEach((f) => f(t));
-    return { group: g, cam: new T.Vector3(1.5, 8.5, 12.5), look: new T.Vector3(0, 1, 0) };
+    const pins = {}; pinAt(pins, 'mcu', g, .9, .55, -.9); pinAt(pins, 'mem', g, -4.3, .55, -2.2); pinAt(pins, 'pwr', g, 4.2, .55, -2.3); pinAt(pins, 'scope', g, -3.6, 3.6, -2.2);
+    return { group: g, pins, cam: new T.Vector3(1.5, 8.5, 12.5), look: new T.Vector3(0, 1, 0) };
   }
 
   function sceneBuilding() {
@@ -473,9 +623,10 @@ function createWorld() {
       inner.add(s); sensors.push([s, Math.random() * 6]);
     }
     // labels
-    [['HVAC', -5.8, 1.5], ['ACCESS', 5.6, 3.7], ['FIRE', -5.6, 5.9], ['SECURITY', 6, 7.4]].forEach(([n, x, y]) => {
-      const l = H.text(n, { size: .4, color: '#9fefe6' }); l.position.set(x, y, 0); inner.add(l);
-      inner.add(H.line([new T.Vector3(x + (x < 0 ? .9 : -1.2), y, 0), new T.Vector3(Math.sign(x) * fw / 2, y, 0)], COL.cyan, .35));
+    const pins = {};
+    [['hvac', -fw / 2, 1.5, fd / 2], ['access', fw / 2, 3.7, fd / 2], ['sec', fw / 2, 7.4, fd / 2], ['antenna', 1.5, floors * fh + 2, 0]].forEach(([n, x, y, z]) => {
+      pinAt(pins, n, inner, x, y, z);
+      if (n !== 'antenna') { const s = H.glow(COL.cyan, .9); s.position.set(x, y, z); inner.add(s); }
     });
     // radar ring
     const radar = new T.Group(); inner.add(radar); radar.position.y = -.05;
@@ -490,7 +641,7 @@ function createWorld() {
       beacon.material.opacity = (Math.sin(t * 4) > 0) ? 1 : .2;
       sweep.rotation.z = -t * 1.2; g.rotation.y = Math.sin(t * .15) * .25 - .35;
     };
-    return { group: g, cam: new T.Vector3(0, 2.5, 19), look: new T.Vector3(0, 0, 0) };
+    return { group: g, pins, cam: new T.Vector3(0, 2.5, 19), look: new T.Vector3(0, 0, 0) };
   }
 
   function sceneHome() {
@@ -506,9 +657,12 @@ function createWorld() {
     const devices = [['THERMOSTAT', -2.4, 1.1, -2.5, COL.amber], ['CAMERA', 2.9, 3, -2.5, COL.red], ['LEAK SENSOR', 1.2, .25, 1.6, COL.cyan], ['SMOKE / CO', -.6, 3.2, .4, COL.white]];
     const phone = H.phone(3.4, screenTexture(homeAppScreen)); phone.position.set(5.6, 1, 2.2); phone.rotation.set(-.08, -.5, .06); g.add(phone);
     const phoneAnchor = new T.Vector3(5.2, 1.4, 2.5);
+    const pins = {}; pinAt(pins, 'phone', phone, .55, 1.1, .2);
+    const devPin = { THERMOSTAT: 'thermo', 'LEAK SENSOR': 'leak' };
     devices.forEach(([n, x, y, z, c], i) => {
       const p = new T.Vector3(x, y, z).add(house.position);
       const s = H.glow(c, 1.1); s.position.copy(p); g.add(s);
+      if (devPin[n]) pinAt(pins, devPin[n], g, p.x, p.y, p.z);
       const core = new T.Mesh(new T.SphereGeometry(.13, 16, 16), new T.MeshBasicMaterial({ color: c })); core.position.copy(p); g.add(core);
       const l = H.text(n, { size: .33, color: '#cfe9ee' }); l.position.copy(p).add(new T.Vector3(0, .55, 0)); g.add(l);
       const curve = new T.QuadraticBezierCurve3(p, p.clone().lerp(phoneAnchor, .5).add(new T.Vector3(0, 3 + i * .5, 0)), phoneAnchor);
@@ -522,14 +676,14 @@ function createWorld() {
       const p = H.phone(1.5, null); p.position.set((c - 2.5) * 1.25, (r - 1) * 1.8, 0); farm.add(p);
       farmScreens.push([p.userData.screen.material, Math.random() * 10]);
     }
-    const fl = H.text('PARALLEL RUNS · DEVICE CLOUD', { size: .42, color: '#ffb45c' }); fl.position.set(0, 3.2, 0); farm.add(fl);
+    pinAt(pins, 'farm', farm, 3.1, 1.8, 0);
     const cA = new T.Color(0x0a2a30), cB = new T.Color(COL.cyan), cC = new T.Color(COL.green);
     ticks.push((t) => {
       farmScreens.forEach(([m, ph]) => { const k = (t * .6 + ph) % 3; m.color.copy(k < 1.6 ? cA.clone().lerp(cB, .25 + .25 * Math.sin(t * 6 + ph)) : k < 2.4 ? cC : cA); });
       phone.position.y = 1 + Math.sin(t * 1.2) * .15;
     });
     g.userData.tick = (t) => ticks.forEach((f) => f(t));
-    return { group: g, cam: new T.Vector3(3, 4.5, 17), look: new T.Vector3(.5, 1, 0) };
+    return { group: g, pins, cam: new T.Vector3(3, 4.5, 17), look: new T.Vector3(.5, 1, 0) };
   }
 
   function sceneArch() {
@@ -545,7 +699,7 @@ function createWorld() {
     const hex = H.edges(new T.CylinderGeometry(1.15, 1.15, .2, 6), COL.blue, 1); hex.rotation.x = Math.PI / 2; hex.position.copy(P.gql); g.add(hex);
     const hexIn = H.line([0, 1, 2, 0].map((k) => new T.Vector3(Math.cos(k * 2.094 + Math.PI / 2) * .75, Math.sin(k * 2.094 + Math.PI / 2) * .75, 0).add(P.gql)), COL.blue, .9); g.add(hexIn);
     const app = H.phone(2.8, screenTexture(testRunScreen)); app.position.copy(P.app); app.rotation.y = -.35; g.add(app);
-    [['DEVICE', P.dev], ['MQTT', P.mqtt], ['CLOUD', P.cloud], ['GRAPHQL', P.gql], ['APP', P.app]].forEach(([n, p]) => { const l = H.text(n, { size: .42, color: '#e9f3f7' }); l.position.copy(p).add(new T.Vector3(0, n === 'APP' ? -2 : n === 'CLOUD' ? 2.3 : -1.55, 0)); g.add(l); });
+    [['DEVICE', P.dev], ['APP', P.app]].forEach(([n, p]) => { const l = H.text(n, { size: .42, color: '#e9f3f7' }); l.position.copy(p).add(new T.Vector3(0, n === 'APP' ? -2 : n === 'CLOUD' ? 2.3 : -1.55, 0)); g.add(l); });
     const order = [P.dev, P.mqtt, P.cloud, P.gql, P.app];
     for (let i = 0; i < order.length - 1; i++) {
       const a = order[i], b = order[i + 1];
@@ -562,8 +716,9 @@ function createWorld() {
     const days = mk(-3.2, COL.cyan); const cov = mk(3.2, COL.cyan);
     const ghost30 = new T.Mesh(new T.BoxGeometry(1.1, 3, 1.1), ghostMat); ghost30.position.set(3.2, 1.5, 0); bars.add(ghost30);
     { const e = H.edges(ghost30.geometry, COL.amber, .5); e.position.copy(ghost30.position); bars.add(e); }
-    const l1 = H.text('25 → 10 DAYS', { size: .48, color: '#ffb45c' }); l1.position.set(-3.2, -.7, .8); bars.add(l1);
-    const l2 = H.text('30% → 60% COVERAGE', { size: .48, color: '#ffb45c' }); l2.position.set(3.2, -.7, .8); bars.add(l2);
+    const pins = {}; Object.entries(P).forEach(([k, v]) => pinAt(pins, k === 'dev' ? 'device' : k, g, v.x, v.y, v.z));
+    pins.app.position.y += 1.2; pins.cloud.position.y += 1.3;
+    pinAt(pins, 'days', bars, -3.2, 1, .6); pinAt(pins, 'cov', bars, 3.2, 3, .6);
     const plate = H.edges(new T.BoxGeometry(11, .05, 3), COL.cyan, .25); plate.position.y = -.02; bars.add(plate);
     let since = 0;
     g.userData.onEnter = () => { since = performance.now(); };
@@ -574,7 +729,7 @@ function createWorld() {
       const ch = 3 + 3 * e; cov.scale.y = ch; cov.position.y = ch / 2;
     });
     g.userData.tick = (t) => ticks.forEach((f) => f(t));
-    return { group: g, cam: new T.Vector3(0, 3, 24), look: new T.Vector3(0, .2, 0) };
+    return { group: g, pins, cam: new T.Vector3(0, 3, 24), look: new T.Vector3(0, .2, 0) };
   }
 
   function scenePortfolio() {
@@ -606,13 +761,14 @@ function createWorld() {
         m.lookAt(camera.position);
       });
     };
-    return { group: g, cam: new T.Vector3(0, 5, 18), look: new T.Vector3(0, .4, 0) };
+    const pins = {}; pinAt(pins, 'ringE', ring2, 8, 0, 0); pinAt(pins, 'ringS', ring2, 2.4, 7.6, 0); pinAt(pins, 'ringW', ring2, -7.4, 3, 0);
+    return { group: g, pins, cam: new T.Vector3(0, 5, 18), look: new T.Vector3(0, .4, 0) };
   }
 
   function sceneAwards() {
     const g = new T.Group();
     const spec = [['GOLD', 0xffc857, 1.35], ['SILVER', 0xd5dee8, 1.05], ['SILVER', 0xd5dee8, 1.05], ['SILVER', 0xd5dee8, 1.05], ['BRONZE', 0xd08a55, 1]];
-    const medals = [];
+    const medals = []; const pins = {};
     const pl = new T.PointLight(0xfff0d0, 60, 30); pl.position.set(0, 4, 6); g.add(pl);
     const order = [3, 1, 0, 2, 4];
     spec.forEach(([n, c, r], i) => {
@@ -626,14 +782,13 @@ function createWorld() {
       const st = new T.Mesh(new T.ExtrudeGeometry(star, { depth: .06, bevelEnabled: false }), new T.MeshStandardMaterial({ color: c, metalness: 1, roughness: .3 })); st.position.z = .09; m.add(st);
       const rib = new T.Mesh(new T.PlaneGeometry(.5, 2.2), new T.MeshBasicMaterial({ color: slot === 2 ? COL.amber : COL.cyan, transparent: true, opacity: .55, side: T.DoubleSide }));
       rib.position.set(0, r + 1, -.05); m.add(rib);
-      const lbl = H.text(n, { size: .36, color: '#' + new T.Color(c).getHexString() }); lbl.position.set(0, -r - .55, 0); m.add(lbl);
       m.add(H.glow(c, r * 4, .22));
-      g.add(m); medals.push([m, i]);
+      g.add(m); medals.push([m, i]); pinAt(pins, 'm' + i, m, 0, 0, .25);
     });
     const floor = new T.Mesh(new T.RingGeometry(1, 9, 64), new T.MeshBasicMaterial({ color: COL.cyan, transparent: true, opacity: .05, side: T.DoubleSide })); floor.rotation.x = -Math.PI / 2; floor.position.y = -3.2; g.add(floor);
     { const e = H.edges(new T.RingGeometry(8.9, 9, 64), COL.cyan, .3); e.rotation.x = -Math.PI / 2; e.position.y = -3.2; g.add(e); }
     g.userData.tick = (t) => medals.forEach(([m, i]) => { m.rotation.y = Math.sin(t * .8 + i) * .55; m.position.y += (Math.sin(t * 1.3 + i * 1.7) * .004); });
-    return { group: g, cam: new T.Vector3(0, 1.2, 17), look: new T.Vector3(0, .3, 0) };
+    return { group: g, pins, cam: new T.Vector3(0, 1.2, 17), look: new T.Vector3(0, .3, 0) };
   }
 
   function sceneNow() {
@@ -646,7 +801,6 @@ function createWorld() {
     const li = H.text('iOS', { size: .4, color: '#ffb45c' }); li.position.set(.2, -4.1, .4); g.add(li);
     const chip = (s, x, y) => { const c = H.text(s, { size: .6, color: '#f2ece0', bg: 'rgba(40,32,20,.85)', border: 'rgba(255,180,92,.7)' }); c.position.set(x, y, 1.4); g.add(c); return c; };
     const c1 = chip('DETOX  ✓', 3.6, 2.2), c2 = chip('APPIUM  ✓', -3.4, -1.6);
-    const de = H.text('GERMANY · MARCH 2026', { size: .45, color: '#ffb45c' }); de.position.set(0, 4.5, 0); g.add(de);
     const orbit = new T.Mesh(new T.TorusGeometry(5.4, .02, 8, 200), new T.MeshBasicMaterial({ color: COL.amber, transparent: true, opacity: .4 })); orbit.rotation.set(1.2, .2, 0); g.add(orbit);
     const bead = H.glow(COL.amber, 1); orbit.add(bead); bead.position.x = 5.4;
     const orbit2 = new T.Mesh(new T.TorusGeometry(6.4, .015, 8, 200), new T.MeshBasicMaterial({ color: COL.cyan, transparent: true, opacity: .3 })); orbit2.rotation.set(1.4, -.4, 0); g.add(orbit2);
@@ -655,7 +809,8 @@ function createWorld() {
       c1.position.y = 2.2 + Math.sin(t * 1.4) * .15; c2.position.y = -1.6 + Math.sin(t * 1.4 + 2) * .15;
       orbit.rotation.z = t * .4; orbit2.rotation.z = -t * .25;
     };
-    return { group: g, cam: new T.Vector3(1, .6, 15), look: new T.Vector3(0, 0, 0) };
+    const pins = {}; pinAt(pins, 'phone', phone, 1.2, 2.4, .4); pinAt(pins, 'twin', tw, -.2, 2.7, .3); pins.chip = c2;
+    return { group: g, pins, cam: new T.Vector3(1, .6, 15), look: new T.Vector3(0, 0, 0) };
   }
 
   const builders = [sceneIntro, scenePCB, sceneBuilding, sceneHome, sceneArch, scenePortfolio, sceneAwards, sceneNow];
@@ -713,7 +868,7 @@ function createWorld() {
     active = i; scenes[i] && scenes[i].group.userData.onEnter && scenes[i].group.userData.onEnter();
     litFrom = litU; litTo = i < anchors.length ? anchorU[i] : 1;
     if (i === shots.length - 1) litFrom = Math.max(litFrom, anchorU[anchors.length - 1]);
-    if (instant || reduced) { camera.position.copy(to.cam); camLook.copy(to.look); camera.lookAt(camLook); flight = null; litU = litTo; return; }
+    if (instant || reduced) { camera.position.copy(to.cam); camLook.copy(to.look); camera.lookAt(camLook); flight = null; litU = litTo; api.onArrive && api.onArrive(i); return; }
     const from = { cam: camera.position.clone(), look: camLook.clone() };
     const dist = from.cam.distanceTo(to.cam);
     const mid = from.cam.clone().lerp(to.cam, .5).add(new T.Vector3(0, Math.min(30, dist * .18), Math.min(40, dist * .25)));
@@ -727,9 +882,9 @@ function createWorld() {
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     const narrow = w <= 900 || w / h <= 1;
-    if (narrow && w / h <= 1) camera.setViewOffset(w, h, 0, h * .24, w, h);
+    if (narrow && w / h <= 1) camera.setViewOffset(w, h, 0, h * .2, w, h);
     else if (narrow) camera.setViewOffset(w, h, -w * .26, 0, w, h);
-    else camera.setViewOffset(w, h, -w * .2, 0, w, h);
+    else camera.setViewOffset(w, h, -w * .17, 0, w, h);
     camera.fov = narrow && w / h <= 1 ? 58 : 42;
     camera.updateProjectionMatrix();
   }
@@ -753,7 +908,7 @@ function createWorld() {
       camLook.lerpVectors(flight.from.look, flight.to.look, ease(Math.min(1, k * 1.15)));
       fovBoost = Math.sin(k * Math.PI) * 14;
       litU = litFrom + (litTo - litFrom) * e;
-      if (k >= 1) { flight = null; warp.classList.remove('on'); }
+      if (k >= 1) { flight = null; warp.classList.remove('on'); api.onArrive && api.onArrive(active); }
     } else {
       fovBoost *= .9;
       const s = shots[active];
@@ -777,12 +932,20 @@ function createWorld() {
     stars.rotation.z = t * .004;
 
     renderer.render(scene, camera);
+    api.onFrame && api.onFrame(project);
     requestAnimationFrame(frame);
   }
 
   // first frame placement
   camera.position.copy(shots[0].cam).add(new T.Vector3(0, 40, 90)); camLook.copy(shots[0].look);
-  return { flyTo, start: () => requestAnimationFrame(frame), renderer };
+  const _v = new T.Vector3();
+  function project(i, name) {
+    const o = scenes[i] && scenes[i].pins && scenes[i].pins[name]; if (!o) return null;
+    o.getWorldPosition(_v); _v.project(camera);
+    return { x: (_v.x + 1) / 2 * innerWidth, y: (1 - _v.y) / 2 * innerHeight, ok: _v.z < 1 && Math.abs(_v.x) < 1.15 && Math.abs(_v.y) < 1.15 };
+  }
+  const api = { flyTo, start: () => requestAnimationFrame(frame), renderer, project };
+  return api;
 }
 
 /* ------------------------------------------------------------------
@@ -801,7 +964,8 @@ fontsReady.then(() => {
   world = createWorld();
   const startKey = location.hash.slice(1);
   const startIdx = Math.max(0, CHAPTERS.findIndex((c) => c.key === startKey));
-  if (world) world.start();
+  if (world) { world.onArrive = armCallouts; world.onFrame = updateCallouts; world.start(); }
+  else setInterval(() => { if (!coArmed && cur >= 0) armCallouts(cur); }, 500);
   setTimeout(() => {
     clearInterval(bootTick); bootLine.textContent = 'READY'; bootBar.style.width = '100%';
     $('#boot').classList.add('done');

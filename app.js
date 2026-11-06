@@ -130,6 +130,7 @@ const CHAPTERS = [
 /* ------------------------------------------------------------------ */
 const $ = (s) => document.querySelector(s);
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let motionEnabled = !reduced;
 const story = $('#story');
 const N = CHAPTERS.length;
 let cur = -1;
@@ -138,7 +139,7 @@ const isCompact = () => innerWidth <= 900 || innerWidth / innerHeight <= 1;
 /* ---------- text effects ---------- */
 const GLYPHS = '01<>/#=+*▮▯ABCDEFHKXZ';
 function scramble(el, text, dur = 650, delay = 0) {
-  if (reduced) { el.textContent = text; return; }
+  if (reduced || !motionEnabled) { el.textContent = text; return; }
   el.textContent = text.replace(/\S/g, ' ');
   setTimeout(() => {
     const t0 = performance.now();
@@ -174,14 +175,14 @@ function showStory(i, first) {
   const swap = () => {
     story.classList.remove('in', 'out');
     story.innerHTML = storyHTML(CHAPTERS[i], i);
-    const base = first ? 250 : 700;
+    const base = first ? 250 : 430;
     story.querySelectorAll('.ln>span').forEach((el, k) => el.style.setProperty('--d', `${base + 180 + k * 120}ms`));
     story.querySelectorAll('.fx').forEach((el, k) => el.style.setProperty('--d', `${base + 420 + k * 110}ms`));
     story.querySelectorAll('[data-scr]').forEach((el, k) => scramble(el, el.dataset.scr, k ? 700 : 520, base + (k ? 60 : 0)));
     requestAnimationFrame(() => requestAnimationFrame(() => { story.classList.add('in'); measureStory(); }));
   };
   if (first || reduced) swap();
-  else { story.classList.add('out'); storyTimer = setTimeout(swap, 340); }
+  else { story.classList.add('out'); storyTimer = setTimeout(swap, 260); }
 }
 let storyBox = { right: 0, top: innerHeight };
 function measureStory() { const r = story.getBoundingClientRect(); storyBox = { right: r.right, top: r.top }; }
@@ -257,7 +258,8 @@ function updateCallouts(project) {
       if (on && !c.shown) { c.born = now; c.shown = true; c.el.classList.remove('on'); }
       if (!on) { c.shown = false; c.born = 0; c.el.classList.remove('on'); c.g.style.opacity = 0; c.el.style.opacity = 0; return; }
       const a = anchors[k];
-      const lx = land ? W * .56 : 18, top = land ? H * .2 : Math.max(H * .44, storyBox.top - c.h - 26);
+      const lx = land ? Math.min(W - c.w - 24, W * .56) : 18;
+      const top = land ? H * .2 : Math.max(96, Math.min(H * .24, storyBox.top - c.h - 24));
       c.el.style.transform = `translate3d(${lx + (land ? 10 : 0)}px, ${land ? top - 8 : top}px, 0)`;
       c.el.style.opacity = '';
       const pts = land ? route(a.x, a.y, lx, top) : route(a.x, a.y, Math.min(W - 18, Math.max(18, a.x * .35 + 18)), top - 10);
@@ -303,9 +305,9 @@ function drawCallout(c, pts, now, a) {
   const age = now - c.born;
   c.g.style.opacity = 1;
   c.node.setAttribute('cx', a.x); c.node.setAttribute('cy', a.y);
-  const pk = ((age % 2400) / 2400);
+  const pk = motionEnabled ? ((age % 2400) / 2400) : .18;
   c.ping.setAttribute('cx', a.x); c.ping.setAttribute('cy', a.y); c.ping.setAttribute('r', 4 + pk * 22); c.ping.style.opacity = (1 - pk) * .8;
-  const f = reduced ? 1 : Math.min(1, Math.max(0, (age - 120) / 520));
+  const f = (reduced || !motionEnabled) ? 1 : Math.min(1, Math.max(0, (age - 120) / 520));
   const e = 1 - Math.pow(1 - f, 3);
   const { out, p } = along(pts, e);
   c.line.setAttribute('points', out.map((q) => q.join(',')).join(' '));
@@ -326,6 +328,14 @@ document.querySelectorAll('[data-go]').forEach((a) => a.addEventListener('click'
 $('#count-all').textContent = String(N).padStart(2, '0');
 $('#prev').onclick = () => go(cur - 1);
 $('#next').onclick = () => go(cur + 1);
+const motionToggle = $('#motion-toggle');
+function syncMotionToggle() {
+  motionToggle.setAttribute('aria-pressed', String(!motionEnabled));
+  motionToggle.querySelector('span').textContent = motionEnabled ? 'ON' : 'OFF';
+  document.documentElement.classList.toggle('motion-off', !motionEnabled);
+}
+motionToggle.onclick = () => { motionEnabled = !motionEnabled; syncMotionToggle(); if (world && cur >= 0) world.flyTo(cur, true); };
+syncMotionToggle();
 
 function updateHUD(i) {
   rail.querySelectorAll('button').forEach((b, k) => { b.classList.toggle('on', k === i); b.classList.toggle('past', k < i); b.setAttribute('aria-current', k === i ? 'step' : 'false'); });
@@ -347,7 +357,8 @@ function go(i, opts = {}) {
   showStory(i, first);
   buildCallouts(i);
   updateHUD(i);
-  world && world.flyTo(i, false);
+  document.documentElement.dataset.chapter = CHAPTERS[i].key;
+  world && world.flyTo(i, !motionEnabled);
   const key = CHAPTERS[i].key;
   if (location.hash.slice(1) !== key) history.replaceState(null, '', i === 0 ? location.pathname : '#' + key);
   if (i > 0) $('#hint').classList.add('gone');
@@ -403,7 +414,8 @@ function createWorld() {
   let renderer;
   try { renderer = new T.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' }); }
   catch (e) { document.documentElement.classList.add('no-webgl'); return null; }
-  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  const maxPixelRatio = isCompact() ? 1.25 : 1.65;
+  renderer.setPixelRatio(Math.min(devicePixelRatio, maxPixelRatio));
   renderer.outputColorSpace = T.SRGBColorSpace;
   renderer.toneMapping = T.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.15;
@@ -774,7 +786,7 @@ function createWorld() {
     spec.forEach(([n, c, r], i) => {
       const m = new T.Group(); const slot = order[i];
       const x = (slot - 2) * 3.4, y = slot === 2 ? 1 : (slot % 2 ? 0 : -.6);
-      m.position.set(x, y, slot === 2 ? 1 : 0);
+      m.position.set(x, y, slot === 2 ? 1 : 0); m.userData.baseY = y;
       const disc = new T.Mesh(new T.CylinderGeometry(r, r, .18, 64), new T.MeshStandardMaterial({ color: c, metalness: 1, roughness: .22, emissive: c, emissiveIntensity: .12 }));
       disc.rotation.x = Math.PI / 2; m.add(disc);
       const rim = new T.Mesh(new T.TorusGeometry(r * .78, .04, 8, 64), new T.MeshStandardMaterial({ color: c, metalness: 1, roughness: .15 })); rim.position.z = .1; m.add(rim);
@@ -787,7 +799,7 @@ function createWorld() {
     });
     const floor = new T.Mesh(new T.RingGeometry(1, 9, 64), new T.MeshBasicMaterial({ color: COL.cyan, transparent: true, opacity: .05, side: T.DoubleSide })); floor.rotation.x = -Math.PI / 2; floor.position.y = -3.2; g.add(floor);
     { const e = H.edges(new T.RingGeometry(8.9, 9, 64), COL.cyan, .3); e.rotation.x = -Math.PI / 2; e.position.y = -3.2; g.add(e); }
-    g.userData.tick = (t) => medals.forEach(([m, i]) => { m.rotation.y = Math.sin(t * .8 + i) * .55; m.position.y += (Math.sin(t * 1.3 + i * 1.7) * .004); });
+    g.userData.tick = (t) => medals.forEach(([m, i]) => { m.rotation.y = Math.sin(t * .65 + i) * .42; m.position.y = m.userData.baseY + Math.sin(t * .85 + i * 1.7) * .08; });
     return { group: g, pins, cam: new T.Vector3(0, 1.2, 17), look: new T.Vector3(0, .3, 0) };
   }
 
@@ -858,7 +870,7 @@ function createWorld() {
   /* ---------- camera flight ---------- */
   const camLook = new T.Vector3();
   let flight = null, active = 0, litU = 0, litFrom = 0, litTo = 0;
-  const ease = (x) => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+  const ease = (x) => x * x * x * (x * (x * 6 - 15) + 10);
   const warp = $('#warp');
 
   // portrait screens show the scene in a smaller window, so pull the camera further back
@@ -868,17 +880,18 @@ function createWorld() {
     active = i; scenes[i] && scenes[i].group.userData.onEnter && scenes[i].group.userData.onEnter();
     litFrom = litU; litTo = i < anchors.length ? anchorU[i] : 1;
     if (i === shots.length - 1) litFrom = Math.max(litFrom, anchorU[anchors.length - 1]);
-    if (instant || reduced) { camera.position.copy(to.cam); camLook.copy(to.look); camera.lookAt(camLook); flight = null; litU = litTo; api.onArrive && api.onArrive(i); return; }
+    if (instant || reduced || !motionEnabled) { camera.position.copy(to.cam); camLook.copy(to.look); camera.lookAt(camLook); flight = null; litU = litTo; warp.classList.remove('on'); api.onArrive && api.onArrive(i); return; }
     const from = { cam: camera.position.clone(), look: camLook.clone() };
     const dist = from.cam.distanceTo(to.cam);
-    const mid = from.cam.clone().lerp(to.cam, .5).add(new T.Vector3(0, Math.min(30, dist * .18), Math.min(40, dist * .25)));
-    flight = { t0: performance.now(), dur: Math.min(3200, 1500 + dist * 6), from, to, curve: new T.QuadraticBezierCurve3(from.cam, mid, to.cam) };
+    const mid = from.cam.clone().lerp(to.cam, .5).add(new T.Vector3(0, Math.min(11, dist * .07), Math.min(15, dist * .095)));
+    flight = { t0: performance.now(), dur: Math.min(1950, 900 + dist * 3.4), from, to, curve: new T.QuadraticBezierCurve3(from.cam, mid, to.cam) };
     warp.classList.add('on');
   }
 
   /* ---------- sizing ---------- */
   function resize() {
     const w = innerWidth, h = innerHeight;
+    renderer.setPixelRatio(Math.min(devicePixelRatio, (w <= 900 || w / h <= 1) ? 1.25 : 1.65));
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     const narrow = w <= 900 || w / h <= 1;
@@ -899,20 +912,22 @@ function createWorld() {
   let fovBoost = 0;
   function frame() {
     const t = clock.getElapsedTime();
-    scenes.forEach((s, i) => { const near = flight || Math.abs(i - active) <= 1 || active >= anchors.length; if (near && s.group.userData.tick) s.group.userData.tick(reduced ? t * .3 : t); });
-    pathPulses.userData.tick(t);
+    const animT = motionEnabled ? (reduced ? t * .3 : t) : 0;
+    scenes.forEach((s, i) => { const near = flight || Math.abs(i - active) <= 1 || active >= anchors.length; if (near && s.group.userData.tick) s.group.userData.tick(animT); });
+    pathPulses.userData.tick(animT);
 
     if (flight) {
       const k = Math.min(1, (performance.now() - flight.t0) / flight.dur); const e = ease(k);
       camera.position.copy(flight.curve.getPoint(e));
       camLook.lerpVectors(flight.from.look, flight.to.look, ease(Math.min(1, k * 1.15)));
-      fovBoost = Math.sin(k * Math.PI) * 14;
+      fovBoost = Math.sin(k * Math.PI) * 5.5;
       litU = litFrom + (litTo - litFrom) * e;
       if (k >= 1) { flight = null; warp.classList.remove('on'); api.onArrive && api.onArrive(active); }
     } else {
       fovBoost *= .9;
       const s = shots[active];
-      sway.set(pointer.x * 1.6, -pointer.y * 1, 0).add(new T.Vector3(Math.sin(t * .3) * .4, Math.sin(t * .23) * .25, 0));
+      const pointerScale = motionEnabled ? 1 : 0;
+      sway.set(pointer.x * .75 * pointerScale, -pointer.y * .5 * pointerScale, 0).add(new T.Vector3(Math.sin(animT * .24) * .16, Math.sin(animT * .19) * .1, 0));
       camera.position.lerp(camFor(s).clone().add(sway), .04);
       camLook.lerp(s.look, .06);
     }
@@ -928,8 +943,8 @@ function createWorld() {
     const idx = lit.geometry.index.count; const per = 6 * 6;
     lit.geometry.setDrawRange(0, Math.floor((litU * idx) / per) * per);
     head.position.copy(path.getPointAt(Math.min(.999, Math.max(.001, litU))));
-    head.material.opacity = .7 + .3 * Math.sin(t * 5);
-    stars.rotation.z = t * .004;
+    head.material.opacity = .76 + .24 * Math.sin(animT * 4);
+    stars.rotation.z = animT * .002;
 
     renderer.render(scene, camera);
     api.onFrame && api.onFrame(project);

@@ -1,4 +1,5 @@
 import * as T from './assets/three.module.js';
+import { createScenes } from './scenes.js?v=21';
 
 /* ------------------------------------------------------------------
    CONTENT — edit career facts here.
@@ -12,13 +13,13 @@ const CHAPTERS = [
     key: 'start', rail: 'START', short: '●', sector: 'ORIGIN · 2013 → 2026',
     kicker: 'THIRTEEN YEARS · ONE CONNECTED JOURNEY',
     title: ['From a circuit board', 'to the <em>phone in your hand.</em>'],
-    body: 'I’m Hemanth Balaji — a quality engineer who has spent 13 years proving that devices, cloud and apps work together.',
+    body: 'I’m Hemanth Balaji — a test automation leader with 13 years across embedded hardware, building systems, connected-home IoT and mobile. I prove that devices, cloud and apps work together.',
     cta: 'Begin the journey',
     callouts: [
       { pin: 'a', dir: 'ne', big: '13', k: 'YEARS IN QUALITY', t: 'Devices, cloud and apps — proven to work together.' },
-      { pin: 'b', dir: 'e', big: '5', k: 'ROLES', t: 'From validation engineer to mobile QA owner.' },
-      { pin: 'c', dir: 'se', big: '4', k: 'FLAGSHIP APPS', t: 'First Alert, Resideo Pro, Honeywell Home, Total Connect.' },
-      { pin: 'd', dir: 'sw', big: '5', k: 'AWARDS', t: 'Gold, silver and bronze at Resideo / Honeywell Home.', accent: 'amber' },
+      { pin: 'b', dir: 'se', big: '5', k: 'ROLES', t: 'From validation engineer to mobile QA owner.' },
+      { pin: 'c', dir: 'e', big: '4', k: 'FLAGSHIP APPS', t: 'First Alert, Resideo Pro, Honeywell Home, Total Connect.' },
+      { pin: 'd', dir: 'nw', big: '5', k: 'AWARDS', t: 'Gold, silver and bronze at Resideo / Honeywell Home.', accent: 'amber' },
     ],
   },
   {
@@ -28,10 +29,11 @@ const CHAPTERS = [
     company: 'BPL Techno Vision', role: 'QA / Validation Engineer', range: 'APR 2013 — APR 2015', place: 'Bangalore, India',
     body: 'Before apps and clouds there was hardware — and the discipline of proving it behaves exactly as designed.',
     callouts: [
-      { pin: 'mcu', dir: 'ne', k: 'MCU · SPEC VALIDATION', t: 'Validated embedded systems and software against design specifications.' },
-      { pin: 'mem', dir: 'sw', k: 'MEM · DEFECT TRACE', t: 'Tracked and verified defects across the full SDLC.' },
-      { pin: 'pwr', dir: 'se', k: 'PWR · REGRESSION', t: 'Contributed to the core regression suites behind product releases.' },
-      { pin: 'scope', dir: 'nw', k: 'ORIGIN · DIPLOMA', t: 'Electronics & Communication — where the signal began.', accent: 'amber' },
+      { pin: 'mcu', dir: 'ne', k: 'EMBEDDED · SPEC VALIDATION', t: 'Embedded hardware and firmware proven against design specifications.' },
+      { pin: 'scope', dir: 'nw', k: 'MEASURE, DON’T ASSUME', t: 'Foundational validation technique: every signal checked, not trusted.' },
+      { pin: 'pwr', dir: 'ne', k: 'REGRESSION SUITES', t: 'Built into the core regression suites that gated product releases.' },
+      { pin: 'log', dir: 'sw', k: 'DEFECT LIFECYCLE', t: 'Defects logged, tracked and re-verified across the full SDLC.' },
+      { pin: 'iron', dir: 'w', k: 'ORIGIN · DIPLOMA', t: 'Electronics & Communication — the first circuit I ever traced.', accent: 'amber' },
     ],
   },
   {
@@ -41,10 +43,10 @@ const CHAPTERS = [
     company: 'Honeywell Technology Solutions Labs', role: 'Senior Software Engineer — Manual & Functional Testing', range: '2015 — 2018', place: 'Bangalore, India',
     body: 'Software that runs entire buildings. I learned to think in requirements, traceability and the edge cases nobody expects.',
     callouts: [
-      { pin: 'hvac', dir: 'sw', k: 'HVAC · FUNCTIONAL', t: 'Functional and non-functional testing of building-automation software.' },
-      { pin: 'sec', dir: 'e', k: 'SECURITY · SYSTEMS', t: 'Security-system software tested for the edge cases nobody expects.' },
-      { pin: 'access', dir: 'se', k: 'TEST PLANS', t: 'System, integration and UAT test plans.' },
-      { pin: 'antenna', dir: 'ne', k: 'RTM · COVERAGE', t: 'Requirement Traceability Matrix to guarantee release coverage.', accent: 'amber' },
+      { pin: 'hvac', dir: 'ne', k: 'HVAC · BUILDING AUTOMATION', t: 'Functional and non-functional testing of the software that runs air handling and comfort.' },
+      { pin: 'sec', dir: 'e', k: 'SECURITY SYSTEMS', t: 'Cameras, intrusion and access software tested for the edge cases nobody expects.' },
+      { pin: 'access', dir: 'se', k: 'SYSTEM · INTEGRATION · UAT', t: 'Test plans written straight from product requirements.' },
+      { pin: 'rtm', dir: 'e', k: 'RTM · TRACEABILITY', t: 'Every requirement mapped to a test — full release coverage.', accent: 'amber' },
     ],
   },
   {
@@ -65,14 +67,13 @@ const CHAPTERS = [
     year: '2020', kicker: 'CHAPTER 04 · LEADING THE SYSTEM',
     title: ['I learned to make', 'quality <em>scale.</em>'],
     company: 'Resideo Technologies (Honeywell Home)', role: 'Technical Lead — Mobile & IoT Test Automation', range: 'NOV 2020 — OCT 2024', place: 'Bangalore, India',
-    body: 'Leading the automation roadmap across iOS, Android and IoT — validating the whole chain from device to cloud to app.',
+    body: 'Leading the automation roadmap, mentoring engineers and enforcing quality gates — across iOS, Android and IoT, from device to cloud to app.',
     callouts: [
-      { pin: 'days', dir: 'sw', big: '25<i>→</i>10', k: 'DAYS · REGRESSION', t: 'per major release', accent: 'amber' },
-      { pin: 'cov', dir: 'se', big: '30<i>→</i>60%', k: 'AUTOMATION COVERAGE', t: 'mobile & IoT', accent: 'amber' },
-      { pin: 'gql', dir: 'ne', k: 'GRAPHQL', t: 'Test modules for queries, mutations and subscriptions.' },
-      { pin: 'cloud', dir: 'n', k: 'HOMEKIT · ALEXA', t: 'End-to-end interoperability strategy.' },
-      { pin: 'app', dir: 'e', k: 'BAMBOO CI/CD', t: 'Parallel mobile and API suites.' },
-      { pin: 'mqtt', dir: 'nw', k: 'MQTT · TEAM LEAD', t: 'Mentored automation engineers on standards and quality gates.' },
+      { pin: 'days', dir: 'sw', big: '25<i>→</i>10', k: 'DAYS · REGRESSION', t: 'Appium multi-device strategy, per major release.', accent: 'amber' },
+      { pin: 'cov', dir: 'se', big: '30<i>→</i>60%', k: 'AUTOMATION COVERAGE', t: 'Core mobile and IoT suites.', accent: 'amber' },
+      { pin: 'ci', dir: 'nw', k: 'BAMBOO CI/CD', t: 'Mobile and API suites in parallel on every commit.' },
+      { pin: 'gql', dir: 'sw', k: 'GRAPHQL · MQTT', t: 'Queries, mutations, subscriptions — device-to-cloud data fidelity.' },
+      { pin: 'iot', dir: 'se', k: 'HOMEKIT · ALEXA', t: 'End-to-end interoperability strategy.' },
     ],
   },
   {
@@ -81,10 +82,12 @@ const CHAPTERS = [
     title: ['Owning quality', '<em>end to end.</em>'],
     company: 'Resideo Technologies (Honeywell Home)', role: 'Advanced Engineer II — System Test', range: 'OCT 2024 — 2026', place: 'Bangalore, India',
     body: 'Next-gen mobile automation across the entire connected-home portfolio — from requirements and beta to UAT and release.',
+    note: 'APP SCREENS ARE ILLUSTRATIVE',
     callouts: [
-      { pin: 'ringE', dir: 'ne', k: 'FOUR APPS · APPIUM FLUTTER · XCUITEST', t: 'Flutter and native apps — B2C, B2B and EMEA — under one automation strategy.' },
-      { pin: 'ringS', dir: 'se', k: 'AMPLITUDE', t: 'Behavioural analytics fed back into test design.', accent: 'amber' },
-      { pin: 'ringW', dir: 'sw', k: 'TESTFLIGHT · PLAY', t: 'UAT through TestFlight and Play internal / closed testing.' },
+      { pin: 'apps', dir: 'ne', k: 'FOUR APPS · ONE STRATEGY', t: 'First Alert, Resideo Pro, Honeywell Home, Total Connect — Appium Flutter, XCUITest, native.' },
+      { pin: 'req', dir: 'sw', k: 'END-TO-END OWNERSHIP', t: 'Requirements and design review through beta to release.' },
+      { pin: 'uat', dir: 'se', k: 'UAT · TESTFLIGHT · PLAY', t: 'Official UAT cycles on TestFlight and Play closed testing.' },
+      { pin: 'amp', dir: 'ne', k: 'AMPLITUDE', t: 'Real user behaviour fed back into test design.', accent: 'amber' },
     ],
   },
   {
@@ -279,15 +282,21 @@ function updateCallouts(project) {
     if (east && lx + 10 + c.w > right) { lx = right - 10 - c.w; if (lx < a.x + 30) { east = false; lx = Math.max(left + c.w + 10, a.x - 150 * s); } }
     return { c, a, east, lx, ly };
   }).filter(Boolean);
-  // resolve collisions between real label boxes (either side), pushing later ones down, then back up if they run off-screen
-  const box = (p) => { const x0 = p.east ? p.lx : p.lx - 20 - p.c.w; return [x0 - 8, x0 + p.c.w + 28, p.ly - 14, p.ly - 8 + p.c.h + 10]; };
+  // relax overlapping label boxes apart vertically, keeping them on screen
+  const box = (p) => { const x0 = p.east ? p.lx + 10 : p.lx - 10 - p.c.w; return [x0 - 12, x0 + p.c.w + 12, p.ly - 8 - 10, p.ly - 8 + p.c.h + 10]; };
   const hit = (a, b) => a[0] < b[1] && b[0] < a[1] && a[2] < b[3] && b[2] < a[3];
-  place.forEach((p) => { p.ly = Math.max(p.ly, minY); });
-  const ord = place.slice().sort((p, q) => p.ly - q.ly);
-  for (let k = 0; k < ord.length; k++) for (let pass = 0; pass < 3; pass++) for (let j = 0; j < k; j++) { const A = box(ord[j]), B = box(ord[k]); if (hit(A, B)) ord[k].ly = A[3] + 14; }
-  for (let k = ord.length - 1; k >= 0; k--) {
-    const over = ord[k].ly - 8 + ord[k].c.h - maxY;
-    if (over > 0) { ord[k].ly -= over; for (let j = 0; j < k; j++) { const A = box(ord[k]), B = box(ord[j]); if (hit(A, B)) ord[j].ly = Math.min(ord[j].ly, A[2] - ord[j].c.h - 6); } }
+  const clampY = (p) => { p.ly = Math.min(Math.max(p.ly, minY), Math.max(minY, maxY - p.c.h + 8)); };
+  place.forEach(clampY);
+  for (let it = 0; it < 24; it++) {
+    let moved = false;
+    for (let i = 0; i < place.length; i++) for (let j = i + 1; j < place.length; j++) {
+      const P = place[i], Q = place[j], A = box(P), B = box(Q);
+      if (!hit(A, B)) continue;
+      const [up, dn] = P.ly <= Q.ly ? [P, Q] : [Q, P], Au = box(up), Bd = box(dn);
+      const ov = Au[3] - Bd[2] + 1;
+      up.ly -= ov / 2; dn.ly += ov / 2; clampY(up); clampY(dn); moved = true;
+    }
+    if (!moved) break;
   }
   place.forEach((p, k) => {
     const { c, a } = p;
@@ -418,14 +427,25 @@ function createWorld() {
   renderer.setPixelRatio(Math.min(devicePixelRatio, maxPixelRatio));
   renderer.outputColorSpace = T.SRGBColorSpace;
   renderer.toneMapping = T.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.15;
+  renderer.toneMappingExposure = 1.1;
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = T.PCFSoftShadowMap;
+  renderer.localClippingEnabled = true;
 
   const scene = new T.Scene();
   scene.background = new T.Color(0x03060a);
   scene.fog = new T.FogExp2(0x03060a, 0.012);
   const camera = new T.PerspectiveCamera(42, innerWidth / innerHeight, 0.1, 2000);
 
-  scene.add(new T.AmbientLight(0x6688aa, 0.7));
+  scene.add(new T.AmbientLight(0x6688aa, 0.35));
+  // studio environment so metal, glass and plastic read as real materials
+  {
+    const pm = new T.PMREMGenerator(renderer), env = new T.Scene();
+    env.add(new T.Mesh(new T.BoxGeometry(40, 40, 40), new T.MeshBasicMaterial({ color: 0x0c151a, side: T.BackSide })));
+    const panel = (w, h, c, k, x, y, z) => { const m = new T.Mesh(new T.PlaneGeometry(w, h), new T.MeshBasicMaterial({ color: new T.Color(c).multiplyScalar(k), side: T.DoubleSide })); m.position.set(x, y, z); m.lookAt(0, 0, 0); env.add(m); };
+    panel(16, 8, 0xfff2e2, 5, 0, 18, 4); panel(10, 14, 0xdfefff, 2.2, -18, 4, 6); panel(8, 12, 0x9ff6ec, 1.4, 18, 2, -6); panel(30, 3, 0xffd7a8, 1.2, 0, -6, -18);
+    scene.environment = pm.fromScene(env, .03).texture; scene.environmentIntensity = .75; pm.dispose();
+  }
   const key = new T.DirectionalLight(0xbfe8ff, 1.4); key.position.set(10, 20, 12); scene.add(key);
   const rim = new T.DirectionalLight(0xffb45c, 0.8); rim.position.set(-14, 6, -10); scene.add(rim);
 
@@ -482,356 +502,30 @@ function createWorld() {
   const uiFont = (s, wgt = 500) => `${wgt} ${s}px "Space Grotesk", system-ui, sans-serif`;
   const monoFont = (s) => `500 ${s}px "JetBrains Mono", monospace`;
 
-  function homeAppScreen(g, w, h) {
-    const bg = g.createLinearGradient(0, 0, 0, h); bg.addColorStop(0, '#0d2a33'); bg.addColorStop(1, '#071318');
-    g.fillStyle = bg; g.fillRect(0, 0, w, h);
-    g.fillStyle = '#9fefe6'; g.font = monoFont(20); g.fillText('MY HOME', 40, 90);
-    g.fillStyle = '#e9f3f7'; g.font = uiFont(54); g.fillText('21.5°', 40, 170);
-    g.fillStyle = '#8ea3ad'; g.font = uiFont(24, 400); g.fillText('Living room · heating', 40, 210);
-    const tiles = [['THERMOSTAT', 'On'], ['CAMERA', 'Live'], ['LEAK SENSOR', 'Dry'], ['SMOKE / CO', 'OK']];
-    tiles.forEach(([a, b], i) => {
-      const x = 40 + (i % 2) * 222, y = 270 + Math.floor(i / 2) * 200;
-      g.fillStyle = 'rgba(95,242,224,.08)'; g.fillRect(x, y, 200, 176);
-      g.strokeStyle = 'rgba(95,242,224,.35)'; g.lineWidth = 2; g.strokeRect(x, y, 200, 176);
-      g.fillStyle = '#8ea3ad'; g.font = monoFont(15); g.fillText(a, x + 18, y + 40);
-      g.fillStyle = '#e9f3f7'; g.font = uiFont(40); g.fillText(b, x + 18, y + 120);
-    });
-    g.fillStyle = '#ffb45c'; g.fillRect(40, 720, w - 80, 4);
-    g.fillStyle = '#8ea3ad'; g.font = monoFont(16); g.fillText('ALL DEVICES SYNCED ✓', 40, 780);
-  }
-  function journeyScreen(g, w, h) {
-    const bg = g.createLinearGradient(0, 0, w, h); bg.addColorStop(0, '#132b31'); bg.addColorStop(.6, '#0a171c'); bg.addColorStop(1, '#1c160c');
-    g.fillStyle = bg; g.fillRect(0, 0, w, h);
-    g.fillStyle = '#8ea3ad'; g.font = monoFont(17); g.fillText('MOBILE EXPERIENCE', 40, 100);
-    g.fillStyle = '#ffb45c'; g.beginPath(); g.arc(w - 50, 94, 7, 0, 7); g.fill();
-    g.fillStyle = '#f2ece0'; g.font = uiFont(62); ['Every', 'journey.', 'Every detail.'].forEach((l, i) => g.fillText(l, 40, 200 + i * 70));
-    [['01', 'Explore', 'Clarity at the first touch'], ['02', 'Interact', 'Consistent on iOS & Android'], ['03', 'Complete', 'Confidence in the outcome']].forEach(([n, a, b], i) => {
-      const y = 460 + i * 130;
-      g.strokeStyle = 'rgba(255,255,255,.12)'; g.lineWidth = 2; g.beginPath(); g.moveTo(40, y - 40); g.lineTo(w - 40, y - 40); g.stroke();
-      g.fillStyle = '#6f8189'; g.font = monoFont(16); g.fillText(n, 40, y + 10);
-      g.fillStyle = '#f2ece0'; g.font = uiFont(32); g.fillText(a, 96, y + 10);
-      g.fillStyle = '#8ea3ad'; g.font = uiFont(20, 400); g.fillText(b, 96, y + 44);
-      g.fillStyle = '#ffb45c'; g.font = uiFont(30); g.fillText('✓', w - 70, y + 14);
-    });
-    g.strokeStyle = 'rgba(255,180,92,.5)'; g.strokeRect(40, 860, w - 80, 74);
-    g.fillStyle = '#f2ece0'; g.font = uiFont(26); g.fillText('iOS', 80, 907); g.fillText('Android', w - 190, 907);
-    g.fillStyle = '#ffb45c'; g.fillText('↔', w / 2 - 14, 907);
-    g.fillStyle = '#5c6b70'; g.font = monoFont(12); g.fillText('ILLUSTRATIVE — NOT THE VERIVOX APP UI', 70, 990);
-  }
-  function testRunScreen(g, w, h) {
-    g.fillStyle = '#07161a'; g.fillRect(0, 0, w, h);
-    g.fillStyle = '#5ff2e0'; g.font = monoFont(40);
-    for (let i = 0; i < 9; i++) { g.globalAlpha = .25 + (i % 3) * .2; g.fillRect(40, 120 + i * 90, (w - 80) * (.4 + ((i * 37) % 50) / 100), 34); }
-    g.globalAlpha = 1;
-  }
-
   /* ---------- scenes ---------- */
   const scenes = [];
   const pinAt = (pins, name, parent, x = 0, y = 0, z = 0) => { const o = new T.Object3D(); o.position.set(x, y, z); parent.add(o); pins[name] = o; return o; };
 
-  function sceneIntro() {
-    const g = new T.Group();
-    const core = new T.Mesh(new T.IcosahedronGeometry(2.3, 1), new T.MeshStandardMaterial({ color: 0x0b2a30, emissive: 0x06363a, metalness: .7, roughness: .25, flatShading: true }));
-    g.add(core); const coreEdges = H.edges(new T.IcosahedronGeometry(2.32, 1), COL.cyan, .9); g.add(coreEdges);
-    const shell = H.edges(new T.IcosahedronGeometry(3.6, 2), COL.blue, .18); g.add(shell);
-    g.add(H.glow(COL.cyan, 9, .55));
-    const rings = [];
-    [[4.6, COL.cyan, .55], [5.6, COL.amber, .4], [6.8, COL.blue, .3]].forEach(([r, c, o], i) => {
-      const ring = new T.Mesh(new T.TorusGeometry(r, .022, 8, 180), new T.MeshBasicMaterial({ color: c, transparent: true, opacity: o, blending: T.AdditiveBlending }));
-      ring.rotation.set(Math.PI / 2 + i * .35, i * .5, 0); g.add(ring); rings.push(ring);
-      const bead = H.glow(c, .9); ring.add(bead); bead.position.set(r, 0, 0);
-    });
-    const n = 1400, pos = new Float32Array(n * 3);
-    for (let i = 0; i < n; i++) { const a = Math.random() * Math.PI * 2, r = 7 + Math.random() * 9; pos.set([Math.cos(a) * r, (Math.random() - .5) * 1.2 * (r / 8), Math.sin(a) * r], i * 3); }
-    const disk = new T.Points(new T.BufferGeometry().setAttribute('position', new T.BufferAttribute(pos, 3)), new T.PointsMaterial({ color: COL.cyan, size: .07, transparent: true, opacity: .7, blending: T.AdditiveBlending, depthWrite: false }));
-    disk.rotation.x = .25; g.add(disk);
-    g.userData.tick = (t) => {
-      core.rotation.y = coreEdges.rotation.y = t * .25; core.rotation.x = coreEdges.rotation.x = t * .12;
-      shell.rotation.y = -t * .08; disk.rotation.y = t * .05;
-      rings.forEach((r, i) => { r.rotation.z = t * (.3 + i * .12) * (i % 2 ? -1 : 1); });
-    };
-    const pins = {}; pinAt(pins, 'a', g, 1.6, 1.6, 1); pinAt(pins, 'b', g, 4.6, .2, 0); pinAt(pins, 'c', g, 2.2, -2.6, 2); pinAt(pins, 'd', g, -3.2, -2.2, 1.5);
-    return { group: g, pins, cam: new T.Vector3(0, 1.5, 17), look: new T.Vector3(0, 0, 0) };
-  }
-
-  function scenePCB() {
-    const g = new T.Group(); const ticks = [];
-    const board = new T.Mesh(new T.BoxGeometry(13, .3, 8.5), new T.MeshStandardMaterial({ color: 0x06302c, metalness: .5, roughness: .45, emissive: 0x021c19 }));
-    g.add(board); g.add(H.edges(board.geometry, COL.cyan, .55));
-    // vias grid
-    const vp = []; for (let x = -6; x <= 6; x += .5) for (let z = -4; z <= 4; z += .5) if (Math.random() < .18) vp.push(x, .16, z);
-    g.add(new T.Points(new T.BufferGeometry().setAttribute('position', new T.Float32BufferAttribute(vp, 3)), new T.PointsMaterial({ color: 0xc8a04a, size: .07 })));
-    const chipMat = new T.MeshStandardMaterial({ color: 0x0b1015, metalness: .6, roughness: .35 });
-    const pinMat = new T.MeshStandardMaterial({ color: 0xbfc8cc, metalness: 1, roughness: .3 });
-    const chips = [[0, 0, 2.8, 2.8, 'MCU'], [-4.3, -2.2, 1.8, 1.3, 'MEM'], [4.2, -2.3, 2, 1.3, 'PWR'], [-4.3, 2.3, 1.5, 1.5, 'RF'], [4.4, 2.4, 1.8, 1, 'UART']];
-    chips.forEach(([x, z, w, d, name]) => {
-      const m = new T.Mesh(new T.BoxGeometry(w, .38, d), chipMat); m.position.set(x, .34, z); g.add(m);
-      const e = H.edges(m.geometry, COL.cyan, .5); e.position.copy(m.position); g.add(e);
-      const pins = Math.round(w * 3);
-      for (let k = 0; k < pins; k++) for (const s of [-1, 1]) {
-        const p = new T.Mesh(new T.BoxGeometry(.07, .05, .26), pinMat); p.position.set(x - w / 2 + (k + .5) * (w / pins), .18, z + s * (d / 2 + .1)); g.add(p);
-      }
-      const l = H.text(name, { size: name === 'MCU' ? .6 : .38, color: '#9fefe6' }); l.position.set(x, .9, z); g.add(l);
-    });
-    // traces with signals
-    const y = .17;
-    const routes = [
-      [[1.4, 0], [2.6, 0], [2.6, -2.3], [3.2, -2.3]],
-      [[-1.4, .5], [-2.6, .5], [-2.6, 2.3], [-3.55, 2.3]],
-      [[-1.4, -.6], [-2.8, -.6], [-2.8, -2.2], [-3.4, -2.2]],
-      [[.6, 1.4], [.6, 2.4], [3.5, 2.4]],
-      [[-.6, -1.4], [-.6, -3.4], [3, -3.4], [3, -2.95]],
-      [[1.4, .8], [2, .8], [2, 3.6], [-3, 3.6], [-3, 3.05]],
-    ];
-    routes.forEach((r, i) => {
-      const pts = r.map(([x, z]) => new T.Vector3(x, y, z));
-      g.add(H.line(pts, i % 2 ? COL.amber : COL.cyan, .75));
-      const path = new T.CurvePath(); for (let k = 0; k < pts.length - 1; k++) path.add(new T.LineCurve3(pts[k], pts[k + 1]));
-      const p = H.pulses(path, i % 2 ? COL.amber : COL.cyan, 2, .28 + i * .03, .5); g.add(p); ticks.push(p.userData.tick);
-    });
-    // oscilloscope wave
-    const wn = 160, wpos = new Float32Array(wn * 3);
-    const wave = new T.Line(new T.BufferGeometry().setAttribute('position', new T.BufferAttribute(wpos, 3)), new T.LineBasicMaterial({ color: COL.cyan, transparent: true, opacity: .95, blending: T.AdditiveBlending }));
-    wave.position.set(0, 3.6, -2.2); g.add(wave);
-    const frame = H.edges(new T.PlaneGeometry(9, 2.6), COL.cyan, .25); frame.position.copy(wave.position); g.add(frame);
-    const sig = H.text('SIGNAL · VALIDATED ✓', { size: .34, color: '#ffb45c' }); sig.position.set(2.7, 5.25, -2.2); g.add(sig);
-    ticks.push((t) => {
-      for (let i = 0; i < wn; i++) {
-        const x = -4.4 + (i / (wn - 1)) * 8.8;
-        const sq = Math.sign(Math.sin(x * 2.2 - t * 3));
-        wpos[i * 3] = x; wpos[i * 3 + 1] = (x < 0 ? Math.sin(x * 3 - t * 4) * .7 : sq * .55) * (1 - Math.abs(x) / 6);
-        wpos[i * 3 + 2] = 0;
-      }
-      wave.geometry.attributes.position.needsUpdate = true;
-    });
-    g.rotation.y = -.35;
-    g.userData.tick = (t) => ticks.forEach((f) => f(t));
-    const pins = {}; pinAt(pins, 'mcu', g, .9, .55, -.9); pinAt(pins, 'mem', g, -4.3, .55, -2.2); pinAt(pins, 'pwr', g, 4.2, .55, -2.3); pinAt(pins, 'scope', g, -3.6, 3.6, -2.2);
-    return { group: g, pins, cam: new T.Vector3(1.5, 8.5, 12.5), look: new T.Vector3(0, 1, 0) };
-  }
-
-  function sceneBuilding() {
-    const g = new T.Group(); const inner = new T.Group(); inner.position.y = -4.4; g.add(inner);
-    const floors = 8, fw = 7, fd = 5, fh = 1.1; const slabs = [];
-    for (let i = 0; i < floors; i++) {
-      const slab = new T.Mesh(new T.BoxGeometry(fw, .1, fd), new T.MeshStandardMaterial({ color: 0x0c1c27, transparent: true, opacity: .55, metalness: .3, roughness: .6 }));
-      slab.position.y = i * fh; inner.add(slab);
-      const e = H.edges(slab.geometry, COL.cyan, .28); e.position.y = i * fh; inner.add(e); slabs.push(e);
-      // windows
-      const win = H.edges(new T.BoxGeometry(fw - .02, fh - .2, fd - .02, 7, 1, 5), COL.blue, .07); win.position.y = i * fh + fh / 2; inner.add(win);
-    }
-    const roof = H.edges(new T.BoxGeometry(fw, .1, fd), COL.cyan, .6); roof.position.y = floors * fh; inner.add(roof);
-    [[-1, -1], [1, -1], [1, 1], [-1, 1]].forEach(([sx, sz]) => inner.add(H.line([new T.Vector3(sx * fw / 2, 0, sz * fd / 2), new T.Vector3(sx * fw / 2, floors * fh, sz * fd / 2)], COL.cyan, .5)));
-    const antenna = H.line([new T.Vector3(1.5, floors * fh, 0), new T.Vector3(1.5, floors * fh + 2, 0)], COL.amber, .8); inner.add(antenna);
-    const beacon = H.glow(COL.red, .9); beacon.position.set(1.5, floors * fh + 2, 0); inner.add(beacon);
-    // scan plane
-    const scan = new T.Mesh(new T.PlaneGeometry(fw + 1.2, fd + 1.2), new T.MeshBasicMaterial({ color: COL.cyan, transparent: true, opacity: .1, blending: T.AdditiveBlending, side: T.DoubleSide, depthWrite: false }));
-    scan.rotation.x = -Math.PI / 2; inner.add(scan);
-    const scanEdge = H.edges(new T.PlaneGeometry(fw + 1.2, fd + 1.2), COL.cyan, .8); scanEdge.rotation.x = -Math.PI / 2; inner.add(scanEdge);
-    // sensors
-    const sensors = [];
-    for (let i = 0; i < 14; i++) {
-      const s = H.glow(i % 3 ? COL.amber : COL.cyan, .55); s.position.set((Math.random() - .5) * fw * .9, Math.floor(Math.random() * floors) * fh + .5, (Math.random() > .5 ? 1 : -1) * fd / 2);
-      inner.add(s); sensors.push([s, Math.random() * 6]);
-    }
-    // labels
-    const pins = {};
-    [['hvac', -fw / 2, 1.5, fd / 2], ['access', fw / 2, 3.7, fd / 2], ['sec', fw / 2, 7.4, fd / 2], ['antenna', 1.5, floors * fh + 2, 0]].forEach(([n, x, y, z]) => {
-      pinAt(pins, n, inner, x, y, z);
-      if (n !== 'antenna') { const s = H.glow(COL.cyan, .9); s.position.set(x, y, z); inner.add(s); }
-    });
-    // radar ring
-    const radar = new T.Group(); inner.add(radar); radar.position.y = -.05;
-    radar.add(new T.Mesh(new T.RingGeometry(6.4, 6.46, 96), new T.MeshBasicMaterial({ color: COL.cyan, transparent: true, opacity: .45, side: T.DoubleSide })).rotateX(-Math.PI / 2));
-    radar.add(new T.Mesh(new T.RingGeometry(8, 8.03, 96), new T.MeshBasicMaterial({ color: COL.blue, transparent: true, opacity: .25, side: T.DoubleSide })).rotateX(-Math.PI / 2));
-    const sweep = new T.Mesh(new T.CircleGeometry(6.4, 48, 0, .5), new T.MeshBasicMaterial({ color: COL.cyan, transparent: true, opacity: .12, blending: T.AdditiveBlending, side: T.DoubleSide, depthWrite: false }));
-    sweep.rotation.x = -Math.PI / 2; radar.add(sweep);
-    g.userData.tick = (t) => {
-      const sy = ((t * .22) % 1) * floors * fh; scan.position.y = scanEdge.position.y = sy;
-      slabs.forEach((e, i) => { const d = Math.abs(i * fh - sy); e.material.opacity = .22 + Math.max(0, 1 - d / 1.2) * .75; });
-      sensors.forEach(([s, ph]) => { s.material.opacity = .35 + .65 * Math.max(0, Math.sin(t * 2 + ph)); });
-      beacon.material.opacity = (Math.sin(t * 4) > 0) ? 1 : .2;
-      sweep.rotation.z = -t * 1.2; g.rotation.y = Math.sin(t * .15) * .25 - .35;
-    };
-    return { group: g, pins, cam: new T.Vector3(0, 2.5, 19), look: new T.Vector3(0, 0, 0) };
-  }
-
-  function sceneHome() {
-    const g = new T.Group(); const ticks = [];
-    const house = new T.Group(); g.add(house); house.position.set(-2.2, -1.8, 0);
-    const base = new T.Mesh(new T.BoxGeometry(7, .2, 5), new T.MeshStandardMaterial({ color: 0x0e1d26, metalness: .3, roughness: .6 })); house.add(base);
-    const walls = H.edges(new T.BoxGeometry(7, 3.2, 5), COL.cyan, .55); walls.position.y = 1.7; house.add(walls);
-    const mid = H.edges(new T.BoxGeometry(7, .05, 5), COL.cyan, .25); mid.position.y = 1.7; house.add(mid);
-    const tri = new T.Shape(); tri.moveTo(-3.8, 0); tri.lineTo(0, 2.2); tri.lineTo(3.8, 0); tri.lineTo(-3.8, 0);
-    const roofGeo = new T.ExtrudeGeometry(tri, { depth: 5.4, bevelEnabled: false }); roofGeo.translate(0, 0, -2.7);
-    const roof = H.edges(roofGeo, COL.amber, .7); roof.position.y = 3.3; house.add(roof);
-    const glass = new T.Mesh(new T.BoxGeometry(6.96, 3.16, 4.96), new T.MeshStandardMaterial({ color: 0x0b2630, transparent: true, opacity: .18, metalness: .2, roughness: .1, depthWrite: false })); glass.position.y = 1.7; house.add(glass);
-    const devices = [['THERMOSTAT', -2.4, 1.1, -2.5, COL.amber], ['CAMERA', 2.9, 3, -2.5, COL.red], ['LEAK SENSOR', 1.2, .25, 1.6, COL.cyan], ['SMOKE / CO', -.6, 3.2, .4, COL.white]];
-    const phone = H.phone(3.4, screenTexture(homeAppScreen)); phone.position.set(5.6, 1, 2.2); phone.rotation.set(-.08, -.5, .06); g.add(phone);
-    const phoneAnchor = new T.Vector3(5.2, 1.4, 2.5);
-    const pins = {}; pinAt(pins, 'phone', phone, .55, 1.1, .2);
-    const devPin = { THERMOSTAT: 'thermo', 'LEAK SENSOR': 'leak' };
-    devices.forEach(([n, x, y, z, c], i) => {
-      const p = new T.Vector3(x, y, z).add(house.position);
-      const s = H.glow(c, 1.1); s.position.copy(p); g.add(s);
-      if (devPin[n]) pinAt(pins, devPin[n], g, p.x, p.y, p.z);
-      const core = new T.Mesh(new T.SphereGeometry(.13, 16, 16), new T.MeshBasicMaterial({ color: c })); core.position.copy(p); g.add(core);
-      const l = H.text(n, { size: .33, color: '#cfe9ee' }); l.position.copy(p).add(new T.Vector3(0, .55, 0)); g.add(l);
-      const curve = new T.QuadraticBezierCurve3(p, p.clone().lerp(phoneAnchor, .5).add(new T.Vector3(0, 3 + i * .5, 0)), phoneAnchor);
-      g.add(H.line(curve.getPoints(40), c, .35));
-      const pu = H.pulses(curve, c, 2, .35 + i * .05, .45); g.add(pu); ticks.push(pu.userData.tick);
-    });
-    // device farm
-    const farm = new T.Group(); farm.position.set(1, 3.5, -7.5); g.add(farm);
-    const farmScreens = [];
-    for (let r = 0; r < 3; r++) for (let c = 0; c < 6; c++) {
-      const p = H.phone(1.5, null); p.position.set((c - 2.5) * 1.25, (r - 1) * 1.8, 0); farm.add(p);
-      farmScreens.push([p.userData.screen.material, Math.random() * 10]);
-    }
-    pinAt(pins, 'farm', farm, 3.1, 1.8, 0);
-    const cA = new T.Color(0x0a2a30), cB = new T.Color(COL.cyan), cC = new T.Color(COL.green);
-    ticks.push((t) => {
-      farmScreens.forEach(([m, ph]) => { const k = (t * .6 + ph) % 3; m.color.copy(k < 1.6 ? cA.clone().lerp(cB, .25 + .25 * Math.sin(t * 6 + ph)) : k < 2.4 ? cC : cA); });
-      phone.position.y = 1 + Math.sin(t * 1.2) * .15;
-    });
-    g.userData.tick = (t) => ticks.forEach((f) => f(t));
-    return { group: g, pins, cam: new T.Vector3(3, 4.5, 17), look: new T.Vector3(.5, 1, 0) };
-  }
-
-  function sceneArch() {
-    const g = new T.Group(); const ticks = [];
-    const P = { dev: new T.Vector3(-9, 0, 0), mqtt: new T.Vector3(-4.6, 1.8, 0), cloud: new T.Vector3(0, 3.2, 0), gql: new T.Vector3(4.6, 1.8, 0), app: new T.Vector3(9, 0, 0) };
-    const dev = new T.Mesh(new T.BoxGeometry(1.5, 1.5, 1.5), new T.MeshStandardMaterial({ color: 0x1a140c, metalness: .6, roughness: .3 })); dev.position.copy(P.dev); g.add(dev);
-    const devE = H.edges(dev.geometry, COL.amber, .9); devE.position.copy(P.dev); g.add(devE); { const gl = H.glow(COL.amber, 3, .4); gl.position.copy(P.dev); g.add(gl); }
-    const mq = new T.Mesh(new T.TorusGeometry(1, .07, 12, 64), new T.MeshBasicMaterial({ color: COL.cyan })); mq.position.copy(P.mqtt); g.add(mq);
-    const mq2 = new T.Mesh(new T.TorusGeometry(.65, .04, 12, 64), new T.MeshBasicMaterial({ color: COL.cyan, transparent: true, opacity: .6 })); mq2.position.copy(P.mqtt); g.add(mq2);
-    const cloud = new T.Group(); cloud.position.copy(P.cloud); g.add(cloud);
-    [[0, 0, 0, 1.5], [-1.4, -.3, .2, 1], [1.4, -.3, -.1, 1.1], [.5, .8, -.5, .9], [-.6, .7, .6, .8]].forEach(([x, y, z, r]) => { const e = H.edges(new T.IcosahedronGeometry(r, 1), COL.cyan, .55); e.position.set(x, y, z); cloud.add(e); });
-    cloud.add(H.glow(COL.cyan, 6, .35));
-    const hex = H.edges(new T.CylinderGeometry(1.15, 1.15, .2, 6), COL.blue, 1); hex.rotation.x = Math.PI / 2; hex.position.copy(P.gql); g.add(hex);
-    const hexIn = H.line([0, 1, 2, 0].map((k) => new T.Vector3(Math.cos(k * 2.094 + Math.PI / 2) * .75, Math.sin(k * 2.094 + Math.PI / 2) * .75, 0).add(P.gql)), COL.blue, .9); g.add(hexIn);
-    const app = H.phone(2.8, screenTexture(testRunScreen)); app.position.copy(P.app); app.rotation.y = -.35; g.add(app);
-    [['DEVICE', P.dev], ['APP', P.app]].forEach(([n, p]) => { const l = H.text(n, { size: .42, color: '#e9f3f7' }); l.position.copy(p).add(new T.Vector3(0, n === 'APP' ? -2 : n === 'CLOUD' ? 2.3 : -1.55, 0)); g.add(l); });
-    const order = [P.dev, P.mqtt, P.cloud, P.gql, P.app];
-    for (let i = 0; i < order.length - 1; i++) {
-      const a = order[i], b = order[i + 1];
-      const curve = new T.QuadraticBezierCurve3(a, a.clone().lerp(b, .5).add(new T.Vector3(0, 1.2, 1.2)), b);
-      g.add(H.line(curve.getPoints(40), i < 2 ? COL.amber : COL.cyan, .5));
-      const pu = H.pulses(curve, i < 2 ? COL.amber : COL.cyan, 3, .32, .55); g.add(pu); ticks.push(pu.userData.tick);
-    }
-    // metrics
-    const bars = new T.Group(); bars.position.set(0, -4.2, 2.5); g.add(bars);
-    const ghostMat = new T.MeshBasicMaterial({ color: COL.amber, transparent: true, opacity: .14, depthWrite: false });
-    const mk = (x, c) => { const m = new T.Mesh(new T.BoxGeometry(1.1, 1, 1.1), new T.MeshStandardMaterial({ color: c, emissive: c, emissiveIntensity: .55, metalness: .2, roughness: .4 })); m.position.x = x; bars.add(m); return m; };
-    const ghost25 = new T.Mesh(new T.BoxGeometry(1.1, 5, 1.1), ghostMat); ghost25.position.set(-3.2, 2.5, 0); bars.add(ghost25);
-    { const e = H.edges(ghost25.geometry, COL.amber, .5); e.position.copy(ghost25.position); bars.add(e); }
-    const days = mk(-3.2, COL.cyan); const cov = mk(3.2, COL.cyan);
-    const ghost30 = new T.Mesh(new T.BoxGeometry(1.1, 3, 1.1), ghostMat); ghost30.position.set(3.2, 1.5, 0); bars.add(ghost30);
-    { const e = H.edges(ghost30.geometry, COL.amber, .5); e.position.copy(ghost30.position); bars.add(e); }
-    const pins = {}; Object.entries(P).forEach(([k, v]) => pinAt(pins, k === 'dev' ? 'device' : k, g, v.x, v.y, v.z));
-    pins.app.position.y += 1.2; pins.cloud.position.y += 1.3;
-    pinAt(pins, 'days', bars, -3.2, 1, .6); pinAt(pins, 'cov', bars, 3.2, 3, .6);
-    const plate = H.edges(new T.BoxGeometry(11, .05, 3), COL.cyan, .25); plate.position.y = -.02; bars.add(plate);
-    let since = 0;
-    g.userData.onEnter = () => { since = performance.now(); };
-    ticks.push((t) => {
-      mq.rotation.x = t * 1.1; mq2.rotation.y = t * 1.6; cloud.rotation.y = t * .2; hex.rotation.y = t * .6; devE.rotation.y = dev.rotation.y = t * .4;
-      const k = Math.min(1, Math.max(0, (performance.now() - since - 1400) / 1600)); const e = 1 - Math.pow(1 - k, 3);
-      const dh = 5 - 3 * e; days.scale.y = dh; days.position.y = dh / 2;
-      const ch = 3 + 3 * e; cov.scale.y = ch; cov.position.y = ch / 2;
-    });
-    g.userData.tick = (t) => ticks.forEach((f) => f(t));
-    return { group: g, pins, cam: new T.Vector3(0, 3, 24), look: new T.Vector3(0, .2, 0) };
-  }
-
-  function scenePortfolio() {
-    const g = new T.Group();
-    const core = new T.Mesh(new T.IcosahedronGeometry(1.5, 3), new T.MeshStandardMaterial({ color: 0x0d3b40, emissive: 0x0b5f5a, emissiveIntensity: .8, metalness: .6, roughness: .2 })); g.add(core);
-    g.add(H.edges(new T.IcosahedronGeometry(1.9, 1), COL.cyan, .6)); g.add(H.glow(COL.cyan, 8, .5));
-    const ring = new T.Mesh(new T.TorusGeometry(6.5, .025, 8, 200), new T.MeshBasicMaterial({ color: COL.cyan, transparent: true, opacity: .45 })); ring.rotation.x = Math.PI / 2; g.add(ring);
-    const ring2 = new T.Mesh(new T.TorusGeometry(8, .015, 8, 200), new T.MeshBasicMaterial({ color: COL.amber, transparent: true, opacity: .3 })); ring2.rotation.x = Math.PI / 2 + .12; g.add(ring2);
-    const apps = [['FIRST ALERT', 'Flutter · B2C', 'Connected safety'], ['RESIDEO PRO', 'Flutter · B2B', 'Installer tooling'], ['HONEYWELL HOME', 'Native · B2C', 'Smart-home control'], ['TOTAL CONNECT', 'Native · EMEA', 'Heating & security']];
-    const cards = apps.map(([a, b, c], i) => {
-      const tex = screenTexture((x, w, h) => {
-        const gr = x.createLinearGradient(0, 0, w, h); gr.addColorStop(0, 'rgba(14,44,52,.95)'); gr.addColorStop(1, 'rgba(6,14,20,.92)');
-        x.fillStyle = gr; x.fillRect(0, 0, w, h); x.strokeStyle = i % 2 ? '#ffb45c' : '#5ff2e0'; x.lineWidth = 4; x.strokeRect(2, 2, w - 4, h - 4);
-        x.fillStyle = i % 2 ? '#ffb45c' : '#5ff2e0'; x.font = monoFont(26); x.fillText(`0${i + 1}`, 34, 60);
-        x.fillStyle = '#e9f3f7'; x.font = uiFont(52, 600); x.fillText(a, 34, 150);
-        x.fillStyle = '#8ea3ad'; x.font = uiFont(30, 400); x.fillText(c, 34, 205);
-        x.fillStyle = '#9fefe6'; x.font = monoFont(24); x.fillText(b.toUpperCase(), 34, 270);
-      }, 640, 320);
-      const m = new T.Mesh(new T.PlaneGeometry(4.2, 2.1), new T.MeshBasicMaterial({ map: tex, transparent: true, side: T.DoubleSide, toneMapped: false })); g.add(m);
-      const d = H.glow(i % 2 ? COL.amber : COL.cyan, .8); g.add(d);
-      return [m, d];
-    });
-    g.userData.tick = (t) => {
-      core.rotation.y = t * .3;
-      cards.forEach(([m, d], i) => {
-        const a = t * .14 + i * Math.PI / 2;
-        m.position.set(Math.cos(a) * 6.5, Math.sin(a * 2 + i) * .5 + .8, Math.sin(a) * 6.5);
-        d.position.set(Math.cos(a) * 6.5, 0, Math.sin(a) * 6.5);
-        m.lookAt(camera.position);
-      });
-    };
-    const pins = {}; pinAt(pins, 'ringE', ring2, 8, 0, 0); pinAt(pins, 'ringS', ring2, 2.4, 7.6, 0); pinAt(pins, 'ringW', ring2, -7.4, 3, 0);
-    return { group: g, pins, cam: new T.Vector3(0, 5, 18), look: new T.Vector3(0, .4, 0) };
-  }
-
-  function sceneAwards() {
-    const g = new T.Group();
-    const spec = [['GOLD', 0xffc857, 1.35], ['SILVER', 0xd5dee8, 1.05], ['SILVER', 0xd5dee8, 1.05], ['SILVER', 0xd5dee8, 1.05], ['BRONZE', 0xd08a55, 1]];
-    const medals = []; const pins = {};
-    const pl = new T.PointLight(0xfff0d0, 60, 30); pl.position.set(0, 4, 6); g.add(pl);
-    const order = [3, 1, 0, 2, 4];
-    spec.forEach(([n, c, r], i) => {
-      const m = new T.Group(); const slot = order[i];
-      const x = (slot - 2) * 3.4, y = slot === 2 ? 1 : (slot % 2 ? 0 : -.6);
-      m.position.set(x, y, slot === 2 ? 1 : 0); m.userData.baseY = y;
-      const disc = new T.Mesh(new T.CylinderGeometry(r, r, .18, 64), new T.MeshStandardMaterial({ color: c, metalness: 1, roughness: .22, emissive: c, emissiveIntensity: .12 }));
-      disc.rotation.x = Math.PI / 2; m.add(disc);
-      const rim = new T.Mesh(new T.TorusGeometry(r * .78, .04, 8, 64), new T.MeshStandardMaterial({ color: c, metalness: 1, roughness: .15 })); rim.position.z = .1; m.add(rim);
-      const star = new T.Shape(); for (let k = 0; k < 10; k++) { const rr = k % 2 ? r * .22 : r * .5; const a = k * Math.PI / 5 + Math.PI / 2; k ? star.lineTo(Math.cos(a) * rr, Math.sin(a) * rr) : star.moveTo(Math.cos(a) * rr, Math.sin(a) * rr); }
-      const st = new T.Mesh(new T.ExtrudeGeometry(star, { depth: .06, bevelEnabled: false }), new T.MeshStandardMaterial({ color: c, metalness: 1, roughness: .3 })); st.position.z = .09; m.add(st);
-      const rib = new T.Mesh(new T.PlaneGeometry(.5, 2.2), new T.MeshBasicMaterial({ color: slot === 2 ? COL.amber : COL.cyan, transparent: true, opacity: .55, side: T.DoubleSide }));
-      rib.position.set(0, r + 1, -.05); m.add(rib);
-      m.add(H.glow(c, r * 4, .22));
-      g.add(m); medals.push([m, i]); pinAt(pins, 'm' + i, m, 0, 0, .25);
-    });
-    const floor = new T.Mesh(new T.RingGeometry(1, 9, 64), new T.MeshBasicMaterial({ color: COL.cyan, transparent: true, opacity: .05, side: T.DoubleSide })); floor.rotation.x = -Math.PI / 2; floor.position.y = -3.2; g.add(floor);
-    { const e = H.edges(new T.RingGeometry(8.9, 9, 64), COL.cyan, .3); e.rotation.x = -Math.PI / 2; e.position.y = -3.2; g.add(e); }
-    g.userData.tick = (t) => medals.forEach(([m, i]) => { m.rotation.y = Math.sin(t * .65 + i) * .42; m.position.y = m.userData.baseY + Math.sin(t * .85 + i * 1.7) * .08; });
-    return { group: g, pins, cam: new T.Vector3(0, 1.2, 17), look: new T.Vector3(0, .3, 0) };
-  }
-
-  function sceneNow() {
-    const g = new T.Group();
-    const phone = H.phone(7, screenTexture(journeyScreen), 0x2a2620); phone.rotation.set(-.08, -.35, .08); g.add(phone);
-    phone.add(H.glow(COL.amber, 10, .18));
-    const twin = new T.Group(); twin.position.set(-3.6, -.4, -2.6); twin.rotation.set(0, .25, -.05); g.add(twin);
-    const tw = H.phone(6, null, 0x101418); tw.userData.screen.material.color.set(0x0c1f24); twin.add(tw);
-    const lt = H.text('ANDROID', { size: .4, color: '#9fefe6' }); lt.position.set(0, -3.5, 0); twin.add(lt);
-    const li = H.text('iOS', { size: .4, color: '#ffb45c' }); li.position.set(.2, -4.1, .4); g.add(li);
-    const chip = (s, x, y) => { const c = H.text(s, { size: .6, color: '#f2ece0', bg: 'rgba(40,32,20,.85)', border: 'rgba(255,180,92,.7)' }); c.position.set(x, y, 1.4); g.add(c); return c; };
-    const c1 = chip('DETOX  ✓', 3.6, 2.2), c2 = chip('APPIUM  ✓', -3.4, -1.6);
-    const orbit = new T.Mesh(new T.TorusGeometry(5.4, .02, 8, 200), new T.MeshBasicMaterial({ color: COL.amber, transparent: true, opacity: .4 })); orbit.rotation.set(1.2, .2, 0); g.add(orbit);
-    const bead = H.glow(COL.amber, 1); orbit.add(bead); bead.position.x = 5.4;
-    const orbit2 = new T.Mesh(new T.TorusGeometry(6.4, .015, 8, 200), new T.MeshBasicMaterial({ color: COL.cyan, transparent: true, opacity: .3 })); orbit2.rotation.set(1.4, -.4, 0); g.add(orbit2);
-    g.userData.tick = (t) => {
-      phone.position.y = Math.sin(t * .9) * .15; twin.position.y = -.4 + Math.sin(t * .9 + 1) * .12;
-      c1.position.y = 2.2 + Math.sin(t * 1.4) * .15; c2.position.y = -1.6 + Math.sin(t * 1.4 + 2) * .15;
-      orbit.rotation.z = t * .4; orbit2.rotation.z = -t * .25;
-    };
-    const pins = {}; pinAt(pins, 'phone', phone, 1.2, 2.4, .4); pinAt(pins, 'twin', tw, -.2, 2.7, .3); pins.chip = c2;
-    return { group: g, pins, cam: new T.Vector3(1, .6, 15), look: new T.Vector3(0, 0, 0) };
-  }
-
-  const builders = [sceneIntro, scenePCB, sceneBuilding, sceneHome, sceneArch, scenePortfolio, sceneAwards, sceneNow];
+  const real = createScenes({ T, H, COL, uiFont, monoFont, camera }).scenes;
+  const builders = real;
   const anchors = builders.map((_, i) => new T.Vector3(Math.sin(i * 1.15) * 30, Math.sin(i * .8) * 7, -i * 75));
-  const ZOOM = [1.1, 1.45, 1.45, 1.35, 1.4, 1.35, 1.35, 1.15]; // pull each camera back from its subject
   builders.forEach((b, i) => {
     const s = b(); s.group.position.copy(anchors[i]); scene.add(s.group);
-    s.cam.sub(s.look).multiplyScalar(ZOOM[i]).add(s.look);
     s.cam.add(anchors[i]); s.look.add(anchors[i]); scenes.push(s);
+    // physical shading + a scan-line "materialise" reveal on arrival
+    s.group.updateMatrixWorld(true);
+    const bb = new T.Box3().setFromObject(s.group, true);
+    s.clip = new T.Plane(new T.Vector3(0, -1, 0), bb.max.y + 1); s.y0 = bb.min.y - .2; s.y1 = bb.max.y + .4; s.revealAt = -1;
+    s.group.traverse((o) => {
+      if (o.isMesh && o.material && (o.material.isMeshStandardMaterial) && !o.material.transparent) { o.castShadow = true; o.receiveShadow = true; }
+      const ms = o.material ? (Array.isArray(o.material) ? o.material : [o.material]) : [];
+      ms.forEach((m) => { m.clippingPlanes = [s.clip]; });
+    });
+    const sz = bb.getSize(new T.Vector3());
+    s.scan = new T.Mesh(new T.PlaneGeometry(sz.x + 2, sz.z + 2), new T.MeshBasicMaterial({ color: COL.cyan, transparent: true, opacity: 0, blending: T.AdditiveBlending, depthWrite: false, side: T.DoubleSide }));
+    s.scan.rotation.x = -Math.PI / 2; const c = bb.getCenter(new T.Vector3()); s.scan.position.set(c.x, s.y1, c.z); scene.add(s.scan);
+    s.scanEdge = new T.LineSegments(new T.EdgesGeometry(s.scan.geometry), new T.LineBasicMaterial({ color: COL.cyan, transparent: true, opacity: 0 }));
+    s.scan.add(s.scanEdge);
   });
 
   /* ---------- the timeline path (grows as you travel) ---------- */
@@ -869,7 +563,7 @@ function createWorld() {
 
   /* ---------- camera flight ---------- */
   const camLook = new T.Vector3();
-  let flight = null, active = 0, litU = 0, litFrom = 0, litTo = 0;
+  let flight = null, active = 0, prevActive = 0, litU = 0, litFrom = 0, litTo = 0;
   const ease = (x) => x * x * x * (x * (x * 6 - 15) + 10);
   const warp = $('#warp');
 
@@ -877,7 +571,10 @@ function createWorld() {
   const camFor = (s) => (innerWidth / innerHeight <= 1 ? s.look.clone().add(s.cam.clone().sub(s.look).multiplyScalar(1.32)) : s.cam);
   function flyTo(i, instant) {
     const to = { cam: camFor(shots[i]), look: shots[i].look };
-    active = i; scenes[i] && scenes[i].group.userData.onEnter && scenes[i].group.userData.onEnter();
+    prevActive = active; active = i; scenes[i] && scenes[i].group.userData.onEnter && scenes[i].group.userData.onEnter();
+    const quick = instant || reduced || !motionEnabled;
+    if (scenes[i] && scenes[i].revealAt < 0) scenes[i].revealAt = quick ? 0 : performance.now() + 380;
+    if (i >= anchors.length) scenes.forEach((s) => { if (s.revealAt < 0) s.revealAt = quick ? 0 : performance.now(); });
     litFrom = litU; litTo = i < anchors.length ? anchorU[i] : 1;
     if (i === shots.length - 1) litFrom = Math.max(litFrom, anchorU[anchors.length - 1]);
     if (instant || reduced || !motionEnabled) { camera.position.copy(to.cam); camLook.copy(to.look); camera.lookAt(camLook); flight = null; litU = litTo; warp.classList.remove('on'); api.onArrive && api.onArrive(i); return; }
@@ -913,7 +610,18 @@ function createWorld() {
   function frame() {
     const t = clock.getElapsedTime();
     const animT = motionEnabled ? (reduced ? t * .3 : t) : 0;
-    scenes.forEach((s, i) => { const near = flight || Math.abs(i - active) <= 1 || active >= anchors.length; if (near && s.group.userData.tick) s.group.userData.tick(animT); });
+    const nowMs = performance.now();
+    scenes.forEach((s, i) => {
+      const show = i === active || (flight && i === prevActive) || active >= anchors.length;
+      s.group.visible = show;
+      if (show && s.group.userData.tick) s.group.userData.tick(animT);
+      // scan-line materialise: geometry appears below a rising cyan plane
+      const k = s.revealAt < 0 ? 0 : s.revealAt === 0 ? 1 : Math.min(1, Math.max(0, (nowMs - s.revealAt) / 1900));
+      const e = 1 - Math.pow(1 - k, 2.2), y = s.y0 + (s.y1 - s.y0) * e;
+      s.clip.constant = k >= 1 ? 1e5 : (s.revealAt < 0 ? s.y0 - 50 : y);
+      s.scan.visible = show && k > 0 && k < 1; s.scan.position.y = y;
+      s.scan.material.opacity = Math.sin(k * Math.PI) * .12; s.scanEdge.material.opacity = Math.sin(k * Math.PI) * .9;
+    });
     pathPulses.userData.tick(animT);
 
     if (flight) {

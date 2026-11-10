@@ -1,5 +1,6 @@
 import * as T from './assets/three.module.js';
-import { createScenes } from './scenes.js?v=21';
+import { createScenes } from './scenes.js?v=31';
+import { createCinema } from './cinema.js?v=31';
 
 /* ------------------------------------------------------------------
    CONTENT — edit career facts here.
@@ -10,7 +11,7 @@ import { createScenes } from './scenes.js?v=21';
 ------------------------------------------------------------------- */
 const CHAPTERS = [
   {
-    key: 'start', rail: 'START', short: '●', sector: 'ORIGIN · 2013 → 2026',
+    key: 'start', rail: 'Start', short: '●', sector: 'ORIGIN · 2013 → 2026',
     kicker: 'THIRTEEN YEARS · ONE CONNECTED JOURNEY',
     title: ['From a circuit board', 'to the <em>phone in your hand.</em>'],
     body: 'I’m Hemanth Balaji — a test automation leader with 13 years across embedded hardware, building systems, connected-home IoT and mobile. I prove that devices, cloud and apps work together.',
@@ -91,7 +92,7 @@ const CHAPTERS = [
     ],
   },
   {
-    key: 'awards', rail: 'AWARDS', short: '★', sector: 'RECOGNITION',
+    key: 'awards', rail: 'Awards', short: '★', sector: 'RECOGNITION',
     kicker: 'CHAPTER 06 · RECOGNITION',
     title: ['Five times,', 'the work was <em>noticed.</em>'],
     body: 'Awards from my years at Resideo / Honeywell Home.',
@@ -117,7 +118,7 @@ const CHAPTERS = [
     note: '3D PHONE IS ILLUSTRATIVE — NOT THE VERIVOX APP UI',
   },
   {
-    key: 'connect', rail: 'CONNECT', short: '→', sector: 'THE WHOLE JOURNEY',
+    key: 'connect', rail: 'Connect', short: '→', sector: 'THE WHOLE JOURNEY',
     kicker: 'THE NEXT CONNECTION',
     title: ['Thirteen years in.', 'Let’s build <em>confidence.</em>'],
     body: 'From embedded validation to owning quality for a mobile app — every chapter added a layer. I’d love to hear what you’re building.',
@@ -149,7 +150,8 @@ function scramble(el, text, dur = 650, delay = 0) {
     const step = () => {
       const k = Math.min(1, (performance.now() - t0) / dur), n = Math.floor(text.length * k);
       let out = text.slice(0, n);
-      for (let j = n; j < text.length; j++) out += text[j] === ' ' ? ' ' : GLYPHS[(Math.random() * GLYPHS.length) | 0];
+      const pool = /^\d+$/.test(text) ? '0123456789' : GLYPHS;
+      for (let j = n; j < text.length; j++) out += text[j] === ' ' ? ' ' : pool[(Math.random() * pool.length) | 0];
       el.textContent = out;
       if (k < 1) requestAnimationFrame(step);
     };
@@ -199,12 +201,12 @@ story.addEventListener('click', (e) => {
 /* ---------- callouts: achievements wired to the 3D objects ---------- */
 const coLayer = $('#co'), coSvg = $('#co-svg');
 const SVGNS = 'http://www.w3.org/2000/svg';
-let callouts = [], coArmed = 0, coActive = 0, coCycleAt = 0;
+let callouts = [], coArmed = 0, coActive = 0, coCycleAt = 0, coHover = -1, coTour = 0, coTourAt = 0;
 const svgEl = (tag, cls, parent) => { const e = document.createElementNS(SVGNS, tag); e.setAttribute('class', cls); parent.appendChild(e); return e; };
 
 function buildCallouts(i) {
   callouts.forEach((c) => { c.el.classList.add('gone'); c.g.classList.add('gone'); setTimeout(() => { c.el.remove(); c.g.remove(); }, 450); });
-  callouts = []; coArmed = 0; coActive = 0;
+  callouts = []; coArmed = 0; coActive = 0; coHover = -1; coTour = 0; coTourAt = 0;
   const list = CHAPTERS[i].callouts || [];
   const n = list.length;
   callouts = list.map((d, k) => {
@@ -216,6 +218,7 @@ function buildCallouts(i) {
     const line = svgEl('polyline', 'co-line', g), ping = svgEl('circle', 'co-ping', g), node = svgEl('circle', 'co-node', g), dot = svgEl('circle', 'co-dot', g);
     node.setAttribute('r', 4.5); dot.setAttribute('r', 2.6);
     el.addEventListener('click', () => { if (isCompact()) { coActive = (coActive + 1) % callouts.length; coCycleAt = 0; } });
+    el.addEventListener('pointerenter', () => { coHover = k; }); el.addEventListener('pointerleave', () => { coHover = -1; coTourAt = performance.now(); });
     return { d, el, g, line, ping, node, dot, w: 0, h: 0, born: 0, shown: false };
   });
   measureCallouts();
@@ -259,6 +262,7 @@ function updateCallouts(project) {
     callouts.forEach((c, k) => {
       const on = coArmed && now > coArmed && k === coActive && anchors[k] && anchors[k].ok;
       if (on && !c.shown) { c.born = now; c.shown = true; c.el.classList.remove('on'); }
+      c.el.classList.add('open');
       if (!on) { c.shown = false; c.born = 0; c.el.classList.remove('on'); c.g.style.opacity = 0; c.el.style.opacity = 0; return; }
       const a = anchors[k];
       const lx = land ? Math.min(W - c.w - 24, W * .56) : 18;
@@ -298,6 +302,11 @@ function updateCallouts(project) {
     }
     if (!moved) break;
   }
+  // guided tour: one label opens at a time (hover takes over), the rest stay as quiet tags
+  const allOn = coArmed && now > coArmed + callouts.length * 480 + 700;
+  if (allOn) { if (!coTourAt) coTourAt = now; if (coHover < 0 && now - coTourAt > 3600) { coTour = (coTour + 1) % callouts.length; coTourAt = now; } }
+  const openIdx = coHover >= 0 ? coHover : (allOn ? coTour : -1);
+  callouts.forEach((c, k) => { c.el.classList.toggle('open', k === openIdx); c.g.classList.toggle('open', k === openIdx); });
   place.forEach((p, k) => {
     const { c, a } = p;
     const idx = callouts.indexOf(c);
@@ -357,6 +366,18 @@ function updateHUD(i) {
   setTimeout(() => { ro.textContent = CHAPTERS[i].sector; ro.style.opacity = 1; }, 300);
 }
 
+/* ---------- cursor ---------- */
+(() => {
+  const el = $('#cursor'); if (!el || !matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+  document.documentElement.classList.add('has-cursor');
+  let x = innerWidth / 2, y = innerHeight / 2, tx = x, ty = y;
+  addEventListener('pointermove', (e) => { if (e.pointerType !== 'mouse') return; tx = e.clientX; ty = e.clientY; el.classList.add('live'); el.classList.toggle('link', !!e.target.closest('a,button,.co')); });
+  addEventListener('pointerdown', () => el.classList.add('hold')); addEventListener('pointerup', () => el.classList.remove('hold'));
+  document.addEventListener('pointerleave', () => el.classList.remove('live'));
+  const loop = () => { x += (tx - x) * .22; y += (ty - y) * .22; el.style.transform = `translate3d(${x}px,${y}px,0)`; requestAnimationFrame(loop); };
+  loop();
+})();
+
 /* ---------- navigation ---------- */
 function go(i, opts = {}) {
   i = Math.max(0, Math.min(N - 1, i));
@@ -367,6 +388,7 @@ function go(i, opts = {}) {
   buildCallouts(i);
   updateHUD(i);
   document.documentElement.dataset.chapter = CHAPTERS[i].key;
+  document.documentElement.style.setProperty('--accent', MOODS[i].accent);
   world && world.flyTo(i, !motionEnabled);
   const key = CHAPTERS[i].key;
   if (location.hash.slice(1) !== key) history.replaceState(null, '', i === 0 ? location.pathname : '#' + key);
@@ -407,6 +429,18 @@ addEventListener('hashchange', () => { const i = CHAPTERS.findIndex((c) => c.key
 /* ==================================================================
    3D WORLD
 ================================================================== */
+// one colour world per chapter: clear colour, backdrop glow, shadow grade, UI accent
+const MOODS = [
+  { bg: 0x05080b, glow: 0x1d6f78, tint: [.86, .98, 1.05], accent: '#7ef0df' },
+  { bg: 0x080604, glow: 0x8a4d1c, tint: [1.07, .97, .85], accent: '#ffb86e' },
+  { bg: 0x04070d, glow: 0x2a4f96, tint: [.87, .95, 1.1], accent: '#93b6ff' },
+  { bg: 0x070605, glow: 0x7a4e2c, tint: [1.05, .98, .9], accent: '#ffc890' },
+  { bg: 0x03080a, glow: 0x147a78, tint: [.84, 1.0, 1.03], accent: '#5ff2e0' },
+  { bg: 0x06060c, glow: 0x473c9c, tint: [.93, .92, 1.1], accent: '#b8acff' },
+  { bg: 0x090704, glow: 0x96621a, tint: [1.08, .98, .83], accent: '#f3c670' },
+  { bg: 0x04060c, glow: 0x2c4a8c, tint: [.92, .95, 1.08], accent: '#ffcf94' },
+  { bg: 0x05080b, glow: 0x1d6f78, tint: [.9, .98, 1.04], accent: '#7ef0df' },
+];
 const COL = { cyan: 0x5ff2e0, amber: 0xffb45c, blue: 0x7aa2ff, white: 0xe9f3f7, green: 0x7dffa8, red: 0xff6b6b };
 let world = null;
 
@@ -431,13 +465,14 @@ function createWorld() {
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = T.PCFSoftShadowMap;
   renderer.localClippingEnabled = true;
+  const cinema = createCinema(T, renderer, { compact: isCompact() });
 
   const scene = new T.Scene();
   scene.background = new T.Color(0x03060a);
   scene.fog = new T.FogExp2(0x03060a, 0.012);
   const camera = new T.PerspectiveCamera(42, innerWidth / innerHeight, 0.1, 2000);
 
-  scene.add(new T.AmbientLight(0x6688aa, 0.35));
+  scene.add(new T.AmbientLight(0x6688aa, 0.22));
   // studio environment so metal, glass and plastic read as real materials
   {
     const pm = new T.PMREMGenerator(renderer), env = new T.Scene();
@@ -446,7 +481,7 @@ function createWorld() {
     panel(16, 8, 0xfff2e2, 5, 0, 18, 4); panel(10, 14, 0xdfefff, 2.2, -18, 4, 6); panel(8, 12, 0x9ff6ec, 1.4, 18, 2, -6); panel(30, 3, 0xffd7a8, 1.2, 0, -6, -18);
     scene.environment = pm.fromScene(env, .03).texture; scene.environmentIntensity = .75; pm.dispose();
   }
-  const key = new T.DirectionalLight(0xbfe8ff, 1.4); key.position.set(10, 20, 12); scene.add(key);
+  const key = new T.DirectionalLight(0xbfe8ff, .9); key.position.set(10, 20, 12); scene.add(key);
   const rim = new T.DirectionalLight(0xffb45c, 0.8); rim.position.set(-14, 6, -10); scene.add(rim);
 
   const glowTex = makeGlowTexture();
@@ -506,6 +541,7 @@ function createWorld() {
   const scenes = [];
   const pinAt = (pins, name, parent, x = 0, y = 0, z = 0) => { const o = new T.Object3D(); o.position.set(x, y, z); parent.add(o); pins[name] = o; return o; };
 
+  const floorAlpha = (() => { const c = document.createElement('canvas'); c.width = c.height = 256; const g = c.getContext('2d'), r = g.createRadialGradient(128, 128, 0, 128, 128, 128); r.addColorStop(0, '#fff'); r.addColorStop(.55, '#bbb'); r.addColorStop(1, '#000'); g.fillStyle = r; g.fillRect(0, 0, 256, 256); return new T.CanvasTexture(c); })();
   const real = createScenes({ T, H, COL, uiFont, monoFont, camera }).scenes;
   const builders = real;
   const anchors = builders.map((_, i) => new T.Vector3(Math.sin(i * 1.15) * 30, Math.sin(i * .8) * 7, -i * 75));
@@ -522,6 +558,11 @@ function createWorld() {
       ms.forEach((m) => { m.clippingPlanes = [s.clip]; });
     });
     const sz = bb.getSize(new T.Vector3());
+    { // a soft pool of gallery floor under each exhibit, so nothing floats in a void
+      const r = Math.max(sz.x, sz.z) * .95, fc = bb.getCenter(new T.Vector3());
+      const floor = new T.Mesh(new T.CircleGeometry(r, 72), new T.MeshStandardMaterial({ color: 0x0b0e11, roughness: .42, metalness: .35, transparent: true, alphaMap: floorAlpha, depthWrite: false, clippingPlanes: [s.clip] }));
+      floor.rotation.x = -Math.PI / 2; floor.position.set(fc.x, bb.min.y - .03, fc.z); floor.receiveShadow = true; floor.renderOrder = -1; scene.add(floor); s.floor = floor;
+    }
     s.scan = new T.Mesh(new T.PlaneGeometry(sz.x + 2, sz.z + 2), new T.MeshBasicMaterial({ color: COL.cyan, transparent: true, opacity: 0, blending: T.AdditiveBlending, depthWrite: false, side: T.DoubleSide }));
     s.scan.rotation.x = -Math.PI / 2; const c = bb.getCenter(new T.Vector3()); s.scan.position.set(c.x, s.y1, c.z); scene.add(s.scan);
     s.scanEdge = new T.LineSegments(new T.EdgesGeometry(s.scan.geometry), new T.LineBasicMaterial({ color: COL.cyan, transparent: true, opacity: 0 }));
@@ -550,9 +591,8 @@ function createWorld() {
   /* ---------- environment ---------- */
   const sn = 4200, sp = new Float32Array(sn * 3);
   for (let i = 0; i < sn; i++) sp.set([(Math.random() - .5) * 360, (Math.random() - .5) * 200, 80 - Math.random() * 720], i * 3);
-  const stars = new T.Points(new T.BufferGeometry().setAttribute('position', new T.BufferAttribute(sp, 3)), new T.PointsMaterial({ color: 0x9cc8ff, size: .45, transparent: true, opacity: .75, depthWrite: false, fog: false, sizeAttenuation: true }));
+  const stars = new T.Points(new T.BufferGeometry().setAttribute('position', new T.BufferAttribute(sp, 3)), new T.PointsMaterial({ color: 0x9cc8ff, size: .34, transparent: true, opacity: .5, depthWrite: false, fog: false, sizeAttenuation: true }));
   scene.add(stars);
-  const grid = new T.GridHelper(900, 300, 0x1b5a63, 0x0d2a30); grid.position.set(0, -24, -280); grid.material.transparent = true; grid.material.opacity = .35; scene.add(grid);
 
   /* ---------- finale camera: look back over the whole journey ---------- */
   const box = new T.Box3(); anchors.forEach((a) => box.expandByPoint(a));
@@ -565,24 +605,24 @@ function createWorld() {
   const camLook = new T.Vector3();
   let flight = null, active = 0, prevActive = 0, litU = 0, litFrom = 0, litTo = 0;
   const ease = (x) => x * x * x * (x * (x * 6 - 15) + 10);
-  const warp = $('#warp');
 
   // portrait screens show the scene in a smaller window, so pull the camera further back
   const camFor = (s) => (innerWidth / innerHeight <= 1 ? s.look.clone().add(s.cam.clone().sub(s.look).multiplyScalar(1.32)) : s.cam);
   function flyTo(i, instant) {
     const to = { cam: camFor(shots[i]), look: shots[i].look };
+    orbit.ty = orbit.tp = 0;
+    if (!moodNow.set) { const m0 = MOODS[Math.min(i, MOODS.length - 1)]; moodNow.bg.setHex(m0.bg); moodNow.glow.setHex(m0.glow); moodNow.tint.setRGB(...m0.tint); moodNow.set = true; }
     prevActive = active; active = i; scenes[i] && scenes[i].group.userData.onEnter && scenes[i].group.userData.onEnter();
     const quick = instant || reduced || !motionEnabled;
     if (scenes[i] && scenes[i].revealAt < 0) scenes[i].revealAt = quick ? 0 : performance.now() + 380;
     if (i >= anchors.length) scenes.forEach((s) => { if (s.revealAt < 0) s.revealAt = quick ? 0 : performance.now(); });
     litFrom = litU; litTo = i < anchors.length ? anchorU[i] : 1;
     if (i === shots.length - 1) litFrom = Math.max(litFrom, anchorU[anchors.length - 1]);
-    if (instant || reduced || !motionEnabled) { camera.position.copy(to.cam); camLook.copy(to.look); camera.lookAt(camLook); flight = null; litU = litTo; warp.classList.remove('on'); api.onArrive && api.onArrive(i); return; }
+    if (instant || reduced || !motionEnabled) { camera.position.copy(to.cam); camLook.copy(to.look); camera.lookAt(camLook); flight = null; litU = litTo; api.onArrive && api.onArrive(i); return; }
     const from = { cam: camera.position.clone(), look: camLook.clone() };
     const dist = from.cam.distanceTo(to.cam);
     const mid = from.cam.clone().lerp(to.cam, .5).add(new T.Vector3(0, Math.min(11, dist * .07), Math.min(15, dist * .095)));
     flight = { t0: performance.now(), dur: Math.min(1950, 900 + dist * 3.4), from, to, curve: new T.QuadraticBezierCurve3(from.cam, mid, to.cam) };
-    warp.classList.add('on');
   }
 
   /* ---------- sizing ---------- */
@@ -590,6 +630,7 @@ function createWorld() {
     const w = innerWidth, h = innerHeight;
     renderer.setPixelRatio(Math.min(devicePixelRatio, (w <= 900 || w / h <= 1) ? 1.25 : 1.65));
     renderer.setSize(w, h, false);
+    { const b = renderer.getDrawingBufferSize(new T.Vector2()); cinema.setSize(b.x, b.y); }
     camera.aspect = w / h;
     const narrow = w <= 900 || w / h <= 1;
     if (narrow && w / h <= 1) camera.setViewOffset(w, h, 0, h * .2, w, h);
@@ -601,7 +642,25 @@ function createWorld() {
   addEventListener('resize', resize); resize();
 
   const pointer = new T.Vector2();
-  addEventListener('pointermove', (e) => { if (e.pointerType === 'mouse') pointer.set(e.clientX / innerWidth - .5, e.clientY / innerHeight - .5); });
+  // drag to inspect: orbit the exhibit a little, it eases back on the next chapter
+  const orbit = { yaw: 0, pitch: 0, ty: 0, tp: 0, drag: null };
+  addEventListener('pointerdown', (e) => {
+    if (e.pointerType === 'touch' || e.button !== 0 || e.target.closest('a,button,.co')) return;
+    orbit.drag = { x: e.clientX, y: e.clientY, ty: orbit.ty, tp: orbit.tp }; document.documentElement.classList.add('grabbing');
+  });
+  addEventListener('pointerup', () => { orbit.drag = null; document.documentElement.classList.remove('grabbing'); });
+  addEventListener('pointermove', (e) => {
+    if (e.pointerType !== 'mouse') return;
+    pointer.set(e.clientX / innerWidth - .5, e.clientY / innerHeight - .5);
+    if (orbit.drag) { orbit.ty = Math.max(-.6, Math.min(.6, orbit.drag.ty - (e.clientX - orbit.drag.x) * .0045)); orbit.tp = Math.max(-.16, Math.min(.3, orbit.drag.tp + (e.clientY - orbit.drag.y) * .003)); }
+  });
+  const orbited = (cam, look) => {
+    const o = cam.clone().sub(look), r = o.length(), yaw = Math.atan2(o.x, o.z) + orbit.yaw, pit = Math.min(1.45, Math.max(.02, Math.asin(o.y / r) + orbit.pitch));
+    return new T.Vector3(Math.sin(yaw) * Math.cos(pit) * r, Math.sin(pit) * r, Math.cos(yaw) * Math.cos(pit) * r).add(look);
+  };
+  const moodNow = { bg: new T.Color(MOODS[0].bg), glow: new T.Color(MOODS[0].glow), tint: new T.Color(...MOODS[0].tint) }, moodTo = { bg: new T.Color(), glow: new T.Color(), tint: new T.Color() };
+  scene.background = moodNow.bg; scene.fog.color = moodNow.bg;
+  let rack = 0;
 
   /* ---------- loop ---------- */
   const clock = new T.Clock();
@@ -613,7 +672,7 @@ function createWorld() {
     const nowMs = performance.now();
     scenes.forEach((s, i) => {
       const show = i === active || (flight && i === prevActive) || active >= anchors.length;
-      s.group.visible = show;
+      s.group.visible = show; s.floor.visible = show;
       if (show && s.group.userData.tick) s.group.userData.tick(animT);
       // scan-line materialise: geometry appears below a rising cyan plane
       const k = s.revealAt < 0 ? 0 : s.revealAt === 0 ? 1 : Math.min(1, Math.max(0, (nowMs - s.revealAt) / 1900));
@@ -628,15 +687,16 @@ function createWorld() {
       const k = Math.min(1, (performance.now() - flight.t0) / flight.dur); const e = ease(k);
       camera.position.copy(flight.curve.getPoint(e));
       camLook.lerpVectors(flight.from.look, flight.to.look, ease(Math.min(1, k * 1.15)));
-      fovBoost = Math.sin(k * Math.PI) * 5.5;
+      fovBoost = Math.sin(k * Math.PI) * 5.5; rack = Math.sin(k * Math.PI) * .8;
       litU = litFrom + (litTo - litFrom) * e;
-      if (k >= 1) { flight = null; warp.classList.remove('on'); api.onArrive && api.onArrive(active); }
+      if (k >= 1) { flight = null; api.onArrive && api.onArrive(active); }
     } else {
-      fovBoost *= .9;
+      fovBoost *= .9; rack *= .93;
       const s = shots[active];
       const pointerScale = motionEnabled ? 1 : 0;
       sway.set(pointer.x * .75 * pointerScale, -pointer.y * .5 * pointerScale, 0).add(new T.Vector3(Math.sin(animT * .24) * .16, Math.sin(animT * .19) * .1, 0));
-      camera.position.lerp(camFor(s).clone().add(sway), .04);
+      orbit.yaw += (orbit.ty - orbit.yaw) * .08; orbit.pitch += (orbit.tp - orbit.pitch) * .08;
+      camera.position.lerp(orbited(camFor(s), s.look).add(sway), orbit.drag ? .16 : .045);
       camLook.lerp(s.look, .06);
     }
     const narrowPortrait = innerWidth / innerHeight <= 1;
@@ -654,7 +714,18 @@ function createWorld() {
     head.material.opacity = .76 + .24 * Math.sin(animT * 4);
     stars.rotation.z = animT * .002;
 
-    renderer.render(scene, camera);
+    const m = MOODS[Math.min(active, MOODS.length - 1)];
+    moodTo.bg.setHex(m.bg); moodTo.glow.setHex(m.glow); moodTo.tint.setRGB(...m.tint);
+    moodNow.bg.lerp(moodTo.bg, .035); moodNow.glow.lerp(moodTo.glow, .035); moodNow.tint.lerp(moodTo.tint, .035);
+    if (cinema.ok) {
+      const u = cinema.u, narrowNow = innerWidth <= 900 || innerWidth / innerHeight <= 1;
+      const focus = camera.position.distanceTo(camLook);
+      u.focus.value = focus; u.band.value = focus * .3; u.ramp.value = focus * 1.5; u.rack.value = rack; u.time.value = t;
+      u.glow.value.copy(moodNow.glow); u.tint.value.copy(moodNow.tint);
+      u.centre.value.set(narrowNow ? .5 : .64, narrowNow ? .68 : .5);
+      u.dof.value = motionEnabled || !reduced ? .9 : .6;
+    }
+    cinema.render(scene, camera);
     api.onFrame && api.onFrame(project);
     requestAnimationFrame(frame);
   }
@@ -674,14 +745,16 @@ function createWorld() {
 /* ------------------------------------------------------------------
    BOOT
 ------------------------------------------------------------------- */
-const bootBar = $('#boot-bar'), bootLine = $('#boot-line');
-const lines = ['INITIALISING JOURNEY', 'CALIBRATING SIGNALS', 'CONNECTING DEVICES', 'SYNCING 13 YEARS', 'READY'];
-let bl = 0; const bootTick = setInterval(() => { bl = Math.min(lines.length - 1, bl + 1); bootLine.textContent = lines[bl]; bootBar.style.width = `${(bl / (lines.length - 1)) * 100}%`; }, 260);
+const bootBar = $('#boot-bar'), bootLine = $('#boot-line'), bootYear = $('#boot-year');
+const lines = ['PREPARING THE EXHIBITS', 'LIGHTING THE BENCH', 'WIRING THE HOME', 'FOCUSING THE LENS', 'READY'];
+let bl = 0, by = 2013;
+const bootTick = setInterval(() => { bl = Math.min(lines.length - 1, bl + 1); bootLine.textContent = lines[bl]; bootBar.style.width = `${(bl / (lines.length - 1)) * 100}%`; }, 300);
+const yearTick = setInterval(() => { if (by < 2026) bootYear.textContent = ++by; }, 95);
 
 const fontsReady = Promise.race([document.fonts ? document.fonts.ready : Promise.resolve(), new Promise((r) => setTimeout(r, 1800))]);
 fontsReady.then(() => {
   // make sure the canvas label fonts are actually loaded before drawing them
-  const loads = document.fonts ? Promise.all(['500 64px "JetBrains Mono"', '700 64px "Space Grotesk"', '500 52px "Space Grotesk"'].map((f) => document.fonts.load(f).catch(() => {}))) : Promise.resolve();
+  const loads = document.fonts ? Promise.all(['500 64px "JetBrains Mono"', '700 64px "Space Grotesk"', '500 52px "Space Grotesk"', '500 24px "DM Sans"', '400 60px "Instrument Serif"', 'italic 400 60px "Instrument Serif"'].map((f) => document.fonts.load(f).catch(() => {}))) : Promise.resolve();
   return Promise.race([loads, new Promise((r) => setTimeout(r, 1500))]);
 }).then(() => {
   world = createWorld();
@@ -690,8 +763,11 @@ fontsReady.then(() => {
   if (world) { world.onArrive = armCallouts; world.onFrame = updateCallouts; world.start(); }
   else setInterval(() => { if (!coArmed && cur >= 0) armCallouts(cur); }, 500);
   setTimeout(() => {
-    clearInterval(bootTick); bootLine.textContent = 'READY'; bootBar.style.width = '100%';
-    $('#boot').classList.add('done');
-    go(startIdx);
-  }, 700);
+    const finish = () => {
+      clearInterval(bootTick); clearInterval(yearTick); bootYear.textContent = '2026'; bootLine.textContent = 'READY'; bootBar.style.width = '100%';
+      $('#boot').classList.add('done');
+      go(startIdx);
+    };
+    setTimeout(finish, Math.max(0, (2026 - by) * 95 + 260));
+  }, 500);
 });

@@ -60,7 +60,7 @@ export function createScenes(K) {
     m.instanceMatrix.needsUpdate = true; return m;
   }
   function keyLight(g, pos, target, intensity = 900, color = 0xfff0dc, angle = .62) {
-    const s = new T.SpotLight(color, intensity, 0, angle, .6, 2);
+    const s = new T.SpotLight(color, intensity * .62, 0, angle, .6, 2);
     s.position.copy(pos); s.target.position.copy(target); g.add(s); g.add(s.target);
     s.castShadow = true; s.shadow.mapSize.set(1024, 1024); s.shadow.bias = -.0004; s.shadow.normalBias = .03;
     s.shadow.camera.near = 2; s.shadow.camera.far = 60;
@@ -119,7 +119,7 @@ export function createScenes(K) {
     const layers = [];
     // 01 · wall plate with real HVAC wiring
     const plate = put(dev, new T.Group()); layers.push([plate, -3.1]);
-    put(plate, rbox(3.7, 3.7, .16, .5, std(0xd5d8d4, .62)));
+    put(plate, rbox(3.7, 3.7, .16, .5, std(0x9c9f9b, .62)));
     put(plate, rbox(1.7, .52, .26, .06, std(0x24292d, .5)), 0, -.95, .17);
     const wireCols = [0xd8352a, 0xf2f2ee, 0x2e9e4f, 0xe8c21c, 0x2a62c9];
     wireCols.forEach((c, i) => {
@@ -325,7 +325,7 @@ export function createScenes(K) {
     });
     // ---- bench power supply ----
     const psu = put(g, new T.Group(), 4.9, 0, -2.8, 0, -.28, 0);
-    put(psu, rbox(3.8, 2, 2.6, .14, std(0xd5d7d4, .5, .1)), 0, 1, 0);
+    put(psu, rbox(3.8, 2, 2.6, .14, std(0xa9aba8, .5, .1)), 0, 1, 0);
     put(psu, rbox(3.6, 1.8, .05, .1, std(0x23282c, .5, .2)), 0, 1, 1.3);
     let amps = .452;
     const psuTex = canvasTex(640, 220, (x, w, h, t) => {
@@ -357,7 +357,7 @@ export function createScenes(K) {
     put(clip, box(2.7, .05, 3.5, std(0x6f5236, .8)));
     put(clip, rbox(1, .3, .18, .05, std(0xbfc5ca, .3, 1)), 0, .1, -1.62, -Math.PI / 2);
     const logTex = canvasTex(600, 780, (x, w, h) => {
-      x.fillStyle = '#f2efe7'; x.fillRect(0, 0, w, h);
+      x.fillStyle = '#c9c5bb'; x.fillRect(0, 0, w, h);
       x.strokeStyle = 'rgba(80,120,170,.25)'; x.lineWidth = 1.5; for (let y = 120; y < h; y += 44) { x.beginPath(); x.moveTo(24, y); x.lineTo(w - 24, y); x.stroke(); }
       x.fillStyle = '#1f2a33'; x.font = '700 26px "JetBrains Mono"'; x.fillText('VALIDATION LOG', 30, 56);
       x.font = '500 18px "JetBrains Mono"'; x.fillStyle = '#4b5862'; x.fillText('MAIN BOARD REV C · FW 1.4.2', 30, 92);
@@ -417,7 +417,7 @@ export function createScenes(K) {
     });
     put(g, new T.Mesh(new T.PlaneGeometry(SX, SZ), std(0xffffff, .92, 0, { map: site })), 0, .006, 0, -Math.PI / 2);
     const W = 7, D = 5, F = 6, fh = 1.15, R = F * fh + .16;
-    const conc = std(0xa9adab, .86), concD = std(0x9da1a1, .8), alu = std(0x2a3034, .38, .8), galv = std(0xb3bbc0, .32, .9);
+    const conc = std(0x8f9391, .86), concD = std(0x9da1a1, .8), alu = std(0x2a3034, .38, .8), galv = std(0xb3bbc0, .32, .9);
     const bld = put(g, new T.Group(), 0, 0, -.4);
     for (let i = 0; i <= F; i++) put(bld, box(W + .2, .16, D + .2, conc), 0, i * fh + .08, 0);
     const cols = []; for (let i = 0; i < F; i++) for (const x of [-3.3, -1.1, 1.1, 3.3]) for (const z of [-2.3, 0, 2.3]) cols.push([x, i * fh + fh / 2 + .08, z]);
@@ -531,7 +531,7 @@ export function createScenes(K) {
     });
     put(g, new T.Mesh(new T.PlaneGeometry(17.6, 12.6), std(0xffffff, .95, 0, { map: lawn })), 0, .005, 0, -Math.PI / 2);
     const house = put(g, new T.Group(), -1.3, 0, -.6);
-    const plaster = std(0xe7e2d8, .85), walnut = std(0x3f3129, .6), oakTex = canvasTex(1024, 720, (x, w, h) => {
+    const plaster = std(0xa8a39a, .85), walnut = std(0x3f3129, .6), oakTex = canvasTex(1024, 720, (x, w, h) => {
       x.fillStyle = '#9c7853'; x.fillRect(0, 0, w, h);
       for (let y = 0; y < h; y += 36) { x.fillStyle = `rgba(${rnd() * 40},${rnd() * 20},0,.12)`; x.fillRect(0, y, w, 36); x.fillStyle = 'rgba(40,25,10,.35)'; x.fillRect(0, y, w, 2); for (let k = 0; k < 3; k++) x.fillRect(rnd() * w, y, 2, 36); }
     });
@@ -568,7 +568,7 @@ export function createScenes(K) {
     [2.4, 3.4].forEach((x) => { put(house, cyl(.2, .2, .07, std(0x2c3236, .6), 20), x, .95, .25); put(house, cyl(.03, .03, .68, std(0xb99b61, .3, .8), 8), x, .6, .25); });
     // utility corner: water heater, copper lines, smart shutoff valve, leak sensor
     const copper = std(0xb8734a, .3, 1);
-    put(house, cyl(.42, .42, 1.9, std(0xeceeec, .4, .1), 32), 4.2, 1.2, 2.2);
+    put(house, cyl(.42, .42, 1.9, std(0xbfc2bf, .4, .1), 32), 4.2, 1.2, 2.2);
     put(house, cyl(.43, .43, .08, std(0x9aa0a4, .3, .8), 32), 4.2, 2.2, 2.2);
     [4.05, 4.35].forEach((x) => put(house, cyl(.045, .045, 1.2, copper, 12), x, 2.8, 2.2));
     house.add(tube([V(4.05, 2.4, 2.2), V(4.05, 2.4, 2.9), V(4.05, .6, 2.9), V(4.05, .6, 3.3)], .045, copper, 40));
@@ -614,7 +614,7 @@ export function createScenes(K) {
     [[-7.4, -4.8], [-7.6, 3.6], [7.6, 4.6], [-3, 5.2]].forEach(([x, z], k) => { put(g, cyl(.06, .08, .6, std(0x4a3a2c, .9), 8), x, .3, z); const c = put(g, new T.Mesh(new T.IcosahedronGeometry(.6, 1), std(0x2d4634, .92)), x, 1.0, z); c.scale.y = 1.2; });
     put(g, box(5, .45, .5, std(0x2b4232, .95)), -3.6, .22, 4.4);
     keyLight(g, V(8, 15, 11), V(.5, 1, 0), 1700, 0xfff0dc, .6);
-    const lamp = new T.PointLight(0xffcf94, 22, 10, 2); lamp.position.set(-2.4, 2.4, -.6); house.add(lamp);
+    const lamp = new T.PointLight(0xffcf94, 12, 10, 2); lamp.position.set(-2.4, 2.4, -.6); house.add(lamp);
     ticks.push((t) => {
       farm.forEach(([m, ph2]) => { const k = (t * .6 + ph2) % 3; m.color.copy(k < 1.6 ? cA.clone().lerp(cB, .3 + .25 * Math.sin(t * 6 + ph2)) : k < 2.4 ? cC : cA); });
       ph.position.y = 2.8 + Math.sin(t * .8) * .1;
@@ -681,12 +681,12 @@ export function createScenes(K) {
     const lc = new T.Color(); for (let i = 0; i < leds.length; i++) ledMesh.setColorAt(i, lc.setHex(i % 5 ? COL.green : COL.blue));
     const rackLbl = H.text('CI · BAMBOO · 12 AGENTS', { size: .24, color: '#9fefe6' }); rackLbl.position.set(0, 6.55, .5); rack.add(rackLbl);
     // the bench: IoT test rig, phone rack, gateway, smart speaker
-    put(g, box(11, .14, 3.4, std(0xd8d4cc, .5)), 0, 1.93, .5);
+    put(g, box(11, .14, 3.4, std(0x8f8b84, .5)), 0, 1.93, .5);
     [[-5.2, -.9], [5.2, -.9], [-5.2, 1.9], [5.2, 1.9]].forEach(([x, z]) => put(g, box(.12, 1.86, .12, std(0x2a3034, .4, .8)), x, .93, z));
     const rig = put(g, new T.Group(), -2.2, 3.35, -.85, -.18);
-    const pegTex = canvasTex(840, 480, (x, w, h) => { x.fillStyle = '#d9dad6'; x.fillRect(0, 0, w, h); x.fillStyle = '#9da19e'; for (let i = 18; i < w; i += 30) for (let j = 18; j < h; j += 30) { x.beginPath(); x.arc(i, j, 4, 0, 7); x.fill(); } x.fillStyle = '#4d636d'; x.font = '600 22px "JetBrains Mono"'; x.fillText('IoT HIL RIG · 09 DEVICES', 24, h - 18); });
+    const pegTex = canvasTex(840, 480, (x, w, h) => { x.fillStyle = '#a9aaa6'; x.fillRect(0, 0, w, h); x.fillStyle = '#6f7370'; for (let i = 18; i < w; i += 30) for (let j = 18; j < h; j += 30) { x.beginPath(); x.arc(i, j, 4, 0, 7); x.fill(); } x.fillStyle = '#4d636d'; x.font = '600 22px "JetBrains Mono"'; x.fillText('IoT HIL RIG · 09 DEVICES', 24, h - 18); });
     put(rig, rbox(4.4, 2.5, .08, .05, std(0xffffff, .7, 0, { map: pegTex })));
-    const white = std(0xeef0ee, .35, .1);
+    const white = std(0xd9dbd9, .35, .1);
     const devs = [];
     [[-1.5, .55], [-.3, .55]].forEach(([x, y]) => { const d = put(rig, rbox(.75, .75, .14, .12, white), x, y, .11); put(d, new T.Mesh(rplane(.56, .3, .05), basic({ color: 0x0b2a30 })), 0, .06, .075); devs.push(d); });
     const camD = put(rig, new T.Group(), 1.0, .5, .12); put(camD, rbox(.5, .62, .3, .1, white)); put(camD, cyl(.12, .12, .05, std(0x0a0c0e, .1, .6), 20), 0, .06, .17, Math.PI / 2); devs.push(camD);
@@ -855,11 +855,11 @@ export function createScenes(K) {
     put(g, box(13, .02, .04, basic({ color: 0xffd9a0 })), 0, -.27, 2.79);
     // laptop running the suites
     const lap = put(g, new T.Group(), -2.6, 0, .4, 0, .28, 0);
-    put(lap, rbox(4, 2.7, .12, .1, std(0xb9bdc2, .32, .9)), 0, .06, 0, -Math.PI / 2);
+    put(lap, rbox(4, 2.7, .12, .1, std(0x7f8388, .34, .9)), 0, .06, 0, -Math.PI / 2);
     put(lap, new T.Mesh(new T.PlaneGeometry(3.5, 1.4), std(0xffffff, .6, .2, { map: canvasTex(1024, 410, (x, w, h) => { x.fillStyle = '#9da2a7'; x.fillRect(0, 0, w, h); x.fillStyle = '#16191c'; for (let r = 0; r < 5; r++) for (let c = 0; c < 14; c++) { x.beginPath(); x.roundRect(14 + c * 71, 14 + r * 78, 62, 68, 8); x.fill(); } }) })), 0, .125, -.45, -Math.PI / 2);
     put(lap, rbox(1.4, .9, .01, .05, std(0xa8adb2, .25, .8)), 0, .125, .75, -Math.PI / 2);
     const lid = put(lap, new T.Group(), 0, .12, -1.33, -.28);
-    put(lid, rbox(4, 2.7, .08, .1, std(0xb9bdc2, .32, .9)), 0, 1.35, 0);
+    put(lid, rbox(4, 2.7, .08, .1, std(0x7f8388, .34, .9)), 0, 1.35, 0);
     let typed = 0;
     const term = canvasTex(1024, 680, (x, w, h, t) => {
       x.fillStyle = '#0b1115'; x.fillRect(0, 0, w, h); x.fillStyle = '#151d22'; x.fillRect(0, 0, w, 44);
@@ -871,7 +871,7 @@ export function createScenes(K) {
       if (Math.sin(t * 6) > 0) { x.fillStyle = '#5ff2e0'; x.fillRect(30, 76 + Math.min(L.length, typed) * 60, 14, 28); }
     });
     put(lid, new T.Mesh(new T.PlaneGeometry(3.7, 2.4), basic({ map: term })), 0, 1.35, .045);
-    const lcdGlow = H.glow(0x5ff2e0, 5, .08); lcdGlow.position.set(0, 1.4, .8); lid.add(lcdGlow);
+    const lcdGlow = H.glow(0x5ff2e0, 5, .04); lcdGlow.position.set(0, 1.4, .8); lid.add(lcdGlow);
     // iOS + Android on desk stands
     const journey = canvasTex(512, 1040, (x, w, h) => {
       const bg = x.createLinearGradient(0, 0, w, h); bg.addColorStop(0, '#132b31'); bg.addColorStop(.6, '#0a171c'); bg.addColorStop(1, '#1c160c'); x.fillStyle = bg; x.fillRect(0, 0, w, h);
